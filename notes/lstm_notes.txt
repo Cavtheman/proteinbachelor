@@ -1,0 +1,10 @@
+Meeting notes
+Pytorch dataset function?
+Divide data into batches yourself for pytorch lstm
+One hot encoding
+Perhaps start generating a sentence
+He will provide data set at some point
+Dataset will likely require some preprocessing
+Perhaps Colab is not necessary
+Perhaps try both convolutional network and lstm
+t-sne dimensionality reduction
