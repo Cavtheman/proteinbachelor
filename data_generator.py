@@ -53,8 +53,15 @@ large_file = "uniref50.fasta"
 
 data_gen = data_generator(large_file, 2000)
 data_gen.gen_data(1000)
-print(data_gen.acid_dict['A'])
+#print(data_gen.acid_dict['A'])
 print(data_gen.data.size())
-print(data_gen.data[0])
+#print(data_gen.data[0])
+
+test = torch.tensor([[[1,2,3],[4,5,6]],[[7,8,9],[10,11,12]],[[13,14,15],[16,17,18]]])
+print(test)
+print(test.size())
+print(test.view(2,3,3))
+print(test.view(2,3,3).size())
+
 #print(data_gen.data[0].shape)
 '''
