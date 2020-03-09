@@ -31,7 +31,8 @@ class data_generator():
 
     # Read num_elems sequences from the given file
     def gen_data(self, num_elems):
-        for i, record in enumerate(self.__parser__):
+        i = 0
+        for record in self.__parser__:
             # [self.acid_dict[aa] for aa in str(record.seq).upper()]
             if (i == num_elems):
                 break
@@ -40,6 +41,7 @@ class data_generator():
             else:
                 temp = np.array([self.acid_dict[elem] for elem in record])
                 self.data.append(temp)
+                i += 1
 
 '''
 large_file = "uniref50.fasta"
