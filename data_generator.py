@@ -4,13 +4,13 @@ import numpy as np
 import torch
 
 class data_generator():
-    def __init__(self, filename, max_seq_length, acid_dict={}):
+    def __init__(self, filename, max_seq_len, acid_dict={}):
         self.__acids__ = "ACDEFGHIKLMNPQRSTVWY-"
         self.__parser__ = SeqIO.parse(filename, "fasta")
 
         self.acid_dict = acid_dict
         self.data = []
-        self.max_seq_length = max_seq_length
+        self.max_seq_len = max_seq_len
 
         if (acid_dict == {}):
             self.gen_acid_dict()
@@ -18,7 +18,7 @@ class data_generator():
     # If a sequence contains one of XBZJ it will be discarded,
     # and if it is longer than the given max_seq_length
     def __is_legal_seq__(self, seq):
-        len_val = not (len(seq) > self.max_seq_length)
+        len_val = not (len(seq) > self.max_seq_len)
         cont_val = not(('X' in seq) or ('B' in seq) or ('Z' in seq) or ('J' in seq))
         return len_val and cont_val
 
@@ -39,7 +39,7 @@ class data_generator():
             elif (not self.__is_legal_seq__(record.seq)):
                 continue
             else:
-                temp_full = np.full((self.max_seq_length - len(record), len(self.acid_dict)), self.acid_dict['-'])
+                temp_full = np.full((self.max_seq_len - len(record), len(self.acid_dict)), self.acid_dict['-'])
                 temp = np.array([self.acid_dict[elem] for elem in record])
                 self.data.append(torch.tensor(np.concatenate((temp, temp_full), axis=0), dtype=torch.long))
                 i += 1
