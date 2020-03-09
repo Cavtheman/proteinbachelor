@@ -1,15 +1,17 @@
 from Bio import SeqIO
 from string import ascii_uppercase
 
+
 class data_generator():
     def __init__(self, filename, max_seq_length, acid_dict={}):
-        if (acid_dict == {}):
+        if (acid_dict = {}):
             self.acid_dict = self.gen_acid_dict()
         else:
             self.acid_dict = acid_dict
         self.data = []
         self.max_seq_length = max_seq_length
         self.__parser__ = SeqIO.parse(filename, "fasta")
+        self.__acids__ = "ACDEFGHIKLMNPQRSTVWY-"
 
     # If a sequence contains one of XBZJ it will be discarded,
     # and if it is longer than the given max_seq_length
@@ -20,14 +22,11 @@ class data_generator():
 
     # Generate a dictionary if none is supplied\n",
     def gen_acid_dict(self):
-        num = 0
-        acid_dict = {}
-        for letter in ascii_uppercase:
-            acid_dict[str(letter)] = num
-            num += 1
-        acid_dict["NOSEQ"] = num
-        self.acid_dict = acid_dict
-        return acid_dict
+        for i, elem in enumerate(self.__acids__):
+            temp = np.zeros(len(self.__acids__))
+            temp[i] = 1
+            self.acid_dict[elem] = temp
+        return self.acid_dict
 
     # Read num_elems sequences from the given file
     def gen_data(self, num_elems):
