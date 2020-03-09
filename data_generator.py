@@ -44,13 +44,12 @@ class data_generator():
                 self.data.append(torch.tensor(np.concatenate((temp, temp_full), axis=0), dtype=torch.long))
                 i += 1
 
-#'''
+'''
 large_file = "uniref50.fasta"
-small_file = "100k_rows.fasta"
 
 data_gen = data_generator(large_file, 2000)
 data_gen.gen_data(1000)
 print(data_gen.acid_dict['A'])
 print(data_gen.data[0])
 print(data_gen.data[0].shape)
-#'''
+'''
