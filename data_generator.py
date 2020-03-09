@@ -21,7 +21,7 @@ class data_generator():
         cont_val = not(('X' in seq) or ('B' in seq) or ('Z' in seq) or ('J' in seq))
         return len_val and cont_val
 
-    # Generate a dictionary if none is supplied\n",
+    # Generate a dictionary if none is supplied,
     def gen_acid_dict(self):
         for i, elem in enumerate(self.__acids__):
             temp = np.zeros(len(self.__acids__))
@@ -33,22 +33,23 @@ class data_generator():
     def gen_data(self, num_elems):
         i = 0
         for record in self.__parser__:
-            # [self.acid_dict[aa] for aa in str(record.seq).upper()]
             if (i == num_elems):
                 break
             elif (not self.__is_legal_seq__(record.seq)):
                 continue
             else:
+                temp_full = np.full((self.max_seq_length - len(record), len(self.acid_dict)), self.acid_dict['-'])
                 temp = np.array([self.acid_dict[elem] for elem in record])
-                self.data.append(temp)
+                self.data.append(np.concatenate((temp, temp_full), axis=0))
                 i += 1
 
-'''
+#'''
 large_file = "uniref50.fasta"
 small_file = "100k_rows.fasta"
 
 data_gen = data_generator(large_file, 2000)
 data_gen.gen_data(1000)
-print(data_gen.acid_dict['B'])
-#print(data_gen.data[0])
-'''
+print(data_gen.acid_dict['A'])
+print(data_gen.data[0])
+print(data_gen.data[0].shape)
+#'''
