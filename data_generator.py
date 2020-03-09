@@ -48,7 +48,7 @@ class data_generator():
         #self.data = torch.Tensor(num_elems, self.max_seq_len, len(self.acid_dict))
         #torch.cat(ret_val, out=self.data)
 
-#'''
+'''
 large_file = "uniref50.fasta"
 
 data_gen = data_generator(large_file, 2000)
@@ -57,4 +57,4 @@ print(data_gen.acid_dict['A'])
 print(data_gen.data.size())
 print(data_gen.data[0])
 #print(data_gen.data[0].shape)
-#'''
+'''
