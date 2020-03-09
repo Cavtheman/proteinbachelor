@@ -6,6 +6,7 @@ class data_generator():
     def __init__(self, filename, max_seq_length, acid_dict={}):
         self.__acids__ = "ACDEFGHIKLMNPQRSTVWY-"
         self.__parser__ = SeqIO.parse(filename, "fasta")
+
         self.acid_dict = acid_dict
         self.data = []
         self.max_seq_length = max_seq_length
