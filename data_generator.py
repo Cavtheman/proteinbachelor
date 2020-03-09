@@ -4,11 +4,11 @@ import numpy as np
 
 class data_generator():
     def __init__(self, filename, max_seq_length, acid_dict={}):
-        self.acid_dict = acid_dict
         self.__acids__ = "ACDEFGHIKLMNPQRSTVWY-"
+        self.__parser__ = SeqIO.parse(filename, "fasta")
+        self.acid_dict = acid_dict
         self.data = []
         self.max_seq_length = max_seq_length
-        self.__parser__ = SeqIO.parse(filename, "fasta")
 
         if (acid_dict == {}):
             self.gen_acid_dict()
@@ -37,7 +37,8 @@ class data_generator():
             elif (not self.__is_legal_seq__(record.seq)):
                 continue
             else:
-                self.data.append(str(record.seq).upper())
+                temp = np.array([self.acid_dict[elem] for elem in record])
+                self.data.append(temp)
 
 '''
 large_file = "uniref50.fasta"
