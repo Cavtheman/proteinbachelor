@@ -1,6 +1,7 @@
 from Bio import SeqIO
 from string import ascii_uppercase
 import numpy as np
+import torch
 
 class data_generator():
     def __init__(self, filename, max_seq_length, acid_dict={}):
@@ -40,7 +41,7 @@ class data_generator():
             else:
                 temp_full = np.full((self.max_seq_length - len(record), len(self.acid_dict)), self.acid_dict['-'])
                 temp = np.array([self.acid_dict[elem] for elem in record])
-                self.data.append(np.concatenate((temp, temp_full), axis=0))
+                self.data.append(torch.tensor(np.concatenate((temp, temp_full), axis=0), dtype=torch.long))
                 i += 1
 
 #'''
