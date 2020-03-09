@@ -9,8 +9,8 @@ class data_generator():
         self.__parser__ = SeqIO.parse(filename, "fasta")
 
         self.acid_dict = acid_dict
-        self.data = []
         self.max_seq_len = max_seq_len
+        self.data = torch.Tensor(1, self.max_seq_len, len(self.acid_dict))
 
         if (acid_dict == {}):
             self.gen_acid_dict()
@@ -32,6 +32,7 @@ class data_generator():
 
     # Read num_elems sequences from the given file
     def gen_data(self, num_elems):
+        ret_val = []
         i = 0
         for record in self.__parser__:
             if (i == num_elems):
@@ -41,15 +42,19 @@ class data_generator():
             else:
                 temp_full = np.full((self.max_seq_len - len(record), len(self.acid_dict)), self.acid_dict['-'])
                 temp = np.array([self.acid_dict[elem] for elem in record])
-                self.data.append(torch.tensor(np.concatenate((temp, temp_full), axis=0), dtype=torch.long))
+                ret_val.append(torch.tensor(np.concatenate((temp, temp_full), axis=0), dtype=torch.long))
                 i += 1
+        self.data = torch.stack(ret_val)
+        #self.data = torch.Tensor(num_elems, self.max_seq_len, len(self.acid_dict))
+        #torch.cat(ret_val, out=self.data)
 
-'''
+#'''
 large_file = "uniref50.fasta"
 
 data_gen = data_generator(large_file, 2000)
 data_gen.gen_data(1000)
 print(data_gen.acid_dict['A'])
+print(data_gen.data.size())
 print(data_gen.data[0])
-print(data_gen.data[0].shape)
-'''
+#print(data_gen.data[0].shape)
+#'''
