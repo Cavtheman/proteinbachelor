@@ -1,0 +1,9 @@
+10 er nok for lavt 100 burde virke, hidden layers
+konverter til onehot on the fly på gpu
+randomiser input data fordi vi bruger stokastisk grafient
+brug dataloader, det er nok smartere
+lstm behøver ikke kigge på paddede symboler? pack padded sequence
+de 1000 er i virkeligheden vores batch størrelse
+husk at forskyde med 1 i predictions
+fix softmax dimension
+unirep er en average af hidden layers i lstm'en
