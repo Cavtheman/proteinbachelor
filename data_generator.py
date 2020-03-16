@@ -41,7 +41,6 @@ class Dataset(data.Dataset):
     def __prepare_seq__(self, seq):
         seq = str(seq).ljust(self.max_seq_len+1, '-')
         tensor_seq = torch.stack([self.acid_dict[x] for x in seq])
-
         return tensor_seq[:-1], tensor_seq[1:]
 
     def __getitem__(self, index):
