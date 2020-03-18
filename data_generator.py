@@ -19,12 +19,12 @@ class Dataset(data.Dataset):
     def __gen_acid_dict__(self, acids):
         acid_dict = {}
         for i, elem in enumerate(acids):
-            temp = torch.zeros(len(acids), dtype=torch.long)
+            temp = torch.zeros(len(acids))
             temp[i] = 1
             acid_dict[elem] = temp
         return acid_dict
 
-    def __init__(self, filename, max_seq_len, acids="ACDEFGHIKLMNPQRSTUVWY-"):
+    def __init__(self, filename, max_seq_len, acids="ACDEFGHIKLMNPQRSTVWY-"):
         elem_list = []
         self.acid_dict = self.__gen_acid_dict__(acids)
         self.max_seq_len = max_seq_len
@@ -40,8 +40,11 @@ class Dataset(data.Dataset):
 
     def __prepare_seq__(self, seq):
         seq = str(seq).ljust(self.max_seq_len+1, '-')
-        tensor_seq = torch.stack([self.acid_dict[x] for x in seq])
-        return tensor_seq[:-1].float(), tensor_seq[-1].long()
+        temp_seq = [self.acid_dict[x] for x in seq]
+        tensor_seq = torch.stack(temp_seq).float()
+        labels_seq = torch.stack([torch.argmax(x) for x in temp_seq[1:]]).long()
+        #print("Seq shape:", tensor_seq[1:].size())
+        return tensor_seq[:-1], tensor_seq[-1].long()#, labels_seq
 
     def __getitem__(self, index):
         return self.__prepare_seq__(self.data[index])
