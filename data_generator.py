@@ -48,10 +48,10 @@ class Dataset(data.Dataset):
         # labels_seq = torch.stack(temp_seq[1:]).long()
 
         # Label consisting of last element
-        labels_seq = temp_seq[-1].long()
+        # labels_seq = temp_seq[-1].long()
 
         # Labels consisting of the index of correct class
-        # labels_seq = torch.argmax(torch.stack(temp_seq[1:]), dim=1).long()
+        labels_seq = torch.argmax(torch.stack(temp_seq[1:]), dim=1).long()
 
         #print("Seq shape:", tensor_seq[1:].size())
         return tensor_seq, labels_seq
