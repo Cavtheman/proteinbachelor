@@ -1,3 +1,4 @@
+import torch
 import torch.nn as nn
 
 class LSTM_model(nn.Module):
@@ -18,4 +19,5 @@ class LSTM_model(nn.Module):
         #print("Tag Space:", tag_space.size())
         #tag_scores = F.log_softmax(tag_space, dim=1)
         #print(type(tag_scores))
+        #output = torch.argmax(tag_space, dim=2).float()
         return tag_space, (hn, cn)
