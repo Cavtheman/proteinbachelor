@@ -1,0 +1,31 @@
+reducerer antal skjulte lag
+Det giver ikke nødvendigvis mening ikke at average
+Kig eventuelt på CNN bagefter
+Første skridt at reproducere unirep for at se om den faktisk har lært noget
+
+Kig evt på dataset med strukturer. Bemærk at det er betydeligt mindre
+Kig på 2c
+De bruger T-sne til at lave "pca" for at plotte
+   Brug evt begge til rapport kommenter på hvad der virker bedst
+det er implementeret i scikit-learn
+
+Kunne bagefter kigge på hvor god den er til at forudsige
+Kig evt på om man kan forudsige ting nemmere fra hidden state vektorerne?
+Implementer måske det saamme for CNN
+Vi skal i hvert fald have noget at kvantificere på
+
+Meget vigtigt: lav plot fra unirep
+Begynd virkelig at skriv rapport
+       Skriv om lstm i den
+
+Kig evt på MNIST til CNN
+Betragt sekvens som billede
+Brug evt den kode han har sendt til at mappe mellem aminosyre navne
+
+Rapport:
+2 sider pr ects for enkelte personer
+Start med intro
+Hvorfor er det interessant
+Metoder
+Resultat
+Konklusion/Diskussion
