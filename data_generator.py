@@ -22,6 +22,7 @@ class Dataset(data.Dataset):
             temp = torch.zeros(len(acids))
             temp[i] = 1
             acid_dict[elem] = temp
+            #print(elem, "=", acid_dict[elem])
         return acid_dict
 
     def __init__(self, filename, max_seq_len, acids="ACDEFGHIKLMNPQRSTVWY-"):
@@ -43,23 +44,11 @@ class Dataset(data.Dataset):
         valid_elems = min(len(seq)+1, self.max_seq_len)
         seq = str(seq).ljust(self.max_seq_len+1, '-')
         temp_seq = [self.acid_dict[x] for x in seq]
-        tensor_seq = torch.stack(temp_seq[:-1]).float()
-        #valid_elems = torch.Tensor([elem != '-' for elem in seq[:-1]])
-
-        # Labels consisting of the raw tensor
-        # labels_seq = torch.stack(temp_seq[1:]).long()
-
-        # Label consisting of last element
-        # labels_seq = temp_seq[-1].long()
+        tensor_seq = torch.stack(temp_seq[:-1], dim=0).float()#.view(self.max_seq_len, 1, -1)
 
         # Labels consisting of the index of correct class
-        labels_seq = torch.argmax(torch.stack(temp_seq[1:]), dim=1).long()
+        labels_seq = torch.argmax(torch.stack(temp_seq[1:]), dim=1).long()#.view(-1, 1)
 
-        #print(labels_seq.size())
-        #print(tensor_seq.size())
-        #labels_seq = torch.transpose(labels_seq, 0, 1)
-        #tensor_seq = torch.transpose(tensor_seq, 0, 1)
-        #print("Seq shape:", tensor_seq[1:].size())
         return tensor_seq, labels_seq, valid_elems
 
     def __getitem__(self, index):
