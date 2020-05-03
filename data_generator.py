@@ -18,18 +18,20 @@ class Dataset(data.Dataset):
     # Generates a dictionary given a string with all the elements
     def __gen_acid_dict__(self, acids):
         acid_dict = {}
+        int_acid_dict = {}
         for i, elem in enumerate(acids):
             temp = torch.zeros(len(acids))
             temp[i] = 1
             acid_dict[elem] = temp
-        return acid_dict
+            int_acid_dict[temp] = i
+        return acid_dict, int_acid_dict
 
-    def __init__(self, filename, max_seq_len, acids="ACDEFGHIKLMNPQRSTVWY-"):
+    def __init__(self, filename, max_seq_len, acids="ACDEFGHIKLMNPQRSTVWY-", int_version=False):
         elem_list = []
         self.acids = acids
-        self.acid_dict = self.__gen_acid_dict__(acids)
+        self.acid_dict, self.int_acid_dict = self.__gen_acid_dict__(acids)
         self.max_seq_len = max_seq_len
-
+        self.int_version = int_version
         # Loading the entire input file into memory
         for i, elem in enumerate(SeqIO.parse(filename, "fasta")):
             if self.__is_legal_seq__(elem.seq):
@@ -42,8 +44,11 @@ class Dataset(data.Dataset):
     def __prepare_seq__(self, seq):
         valid_elems = min(len(seq)+1, self.max_seq_len)
         seq = str(seq).ljust(self.max_seq_len+1, '-')
+        
         temp_seq = [self.acid_dict[x] for x in seq]
+            
         tensor_seq = torch.stack(temp_seq[:-1]).float()
+        
         #valid_elems = torch.Tensor([elem != '-' for elem in seq[:-1]])
 
         # Labels consisting of the raw tensor
@@ -54,7 +59,11 @@ class Dataset(data.Dataset):
 
         # Labels consisting of the index of correct class
         labels_seq = torch.argmax(torch.stack(temp_seq[1:]), dim=1).long()
-
+        
+        if self.int_version:
+            temp_seq = [self.int_acid_dict[x]/len(self.acids) for x in temp_seq]
+            tensor_seq = torch.tensor(temp_seq[:-1]).float()
+            labels_seq = torch.tensor(temp_seq[1:]).float()
         #print(labels_seq.size())
         #print(tensor_seq.size())
         #labels_seq = torch.transpose(labels_seq, 0, 1)
