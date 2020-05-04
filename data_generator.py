@@ -51,10 +51,6 @@ class Dataset(data.Dataset):
             int_acid_dict[temp] = i
         return acid_dict, int_acid_dict
 
-    def __init__(self, filename, max_seq_len, acids="ACDEFGHIKLMNPQRSTVWY-", int_version=False):
-            #print(elem, "=", acid_dict[elem])
-        return acid_dict
-
     '''
     Initialisation for the Dataset
 
@@ -79,7 +75,6 @@ class Dataset(data.Dataset):
         self.acids = acids
         self.acid_dict, self.int_acid_dict = self.__gen_acid_dict__(acids)
         self.max_seq_len = max_seq_len
-        self.int_version = int_version
         # Loading the entire input file into memory
         for i, elem in enumerate(SeqIO.parse(filename, "fasta")):
             if self.__is_legal_seq__(elem.seq):
