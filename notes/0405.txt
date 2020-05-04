@@ -1,0 +1,8 @@
+cnn predict sig selv, men med støj
+kig på bert artikel
+
+lineært lag skal virke på hvert element, check måske at den gør det
+
+prøv at lege med et ekstra lag af lstm
+
+wouter siger man godt burde kunne få i hvert fald 20-30% reconstruction accuracy

@@ -1,7 +1,8 @@
+
 import torch
 import torch.nn as nn
 import torch.nn.utils.rnn as rnn
-
+import torch.nn.functional as F
 
 class LSTM_model(nn.Module):
     '''
@@ -62,15 +63,18 @@ class LSTM_model(nn.Module):
         Used for dimensionality reduction later to see differences between proteins
     '''
     def forward(self, input_data):
-        #print(input_data.data.size())
         lstm_out, (hn, cn) = self.model(input_data, self.init_hidden)
+
         lin_in, _ = rnn.pad_packed_sequence(lstm_out, total_length=self.max_seq_len)
-        #print("LSTM out:", lstm_out.size())
-        tag_space = self.linear(lin_in)
-        #print("Tag Space:", tag_space.size())
-        #tag_scores = F.log_softmax(tag_space, dim=1)
-        #print(type(tag_scores))
-        #output = torch.argmax(tag_space, dim=2).float()
+
+        tag_space = self.linear(lin_in.view(-1,lin_in.size()[2]))
+        tag_space = tag_space.view(self.max_seq_len, self.batch_size, -1)
+        #tag_space = self.linear(lin_in)
+
+        #print(lin_in.size())
+        #print(lin_in.view(-1,lin_in.size()[2]).size())
+        #print(tag_space.size())
+
         return tag_space, lstm_out
 
 '''
