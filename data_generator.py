@@ -110,14 +110,16 @@ class Dataset(data.Dataset):
         Integer value representing the length of the sequence before padding
     '''
     def __prepare_seq__(self, seq):
-        valid_elems = min(len(seq)+1, self.max_seq_len)
+        valid_elems = min(len(seq), self.max_seq_len)
 
         seq = str(seq).ljust(self.max_seq_len+1, self.acids[-1])
         temp_seq = [self.acid_dict[x] for x in seq]
         tensor_seq = torch.stack(temp_seq[:-1], dim=0).float()#.view(self.max_seq_len, 1, -1)
 
         # Labels consisting of the index of correct class
-        labels_seq = torch.argmax(torch.stack(temp_seq[1:]), dim=1).long()#.view(-1, 1)
+        #                                               I
+        #                                   CHANGE THIS V TO 1: WHEN FINISHED PREDICTING IDENTITY
+        labels_seq = torch.argmax(torch.stack(temp_seq[:-1]), dim=1).long()#.view(-1, 1)
         return tensor_seq, labels_seq, valid_elems
 
     '''
