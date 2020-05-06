@@ -12,6 +12,7 @@ acids = "ACDEFGHIKLMNOPQRSTUVWY-"
 large_file = "uniref50.fasta"
 small_file = "100k_rows.fasta"
 
+#max_seq_len = float("inf")
 max_seq_len = 2000
 batch_size = 32
 
@@ -31,11 +32,12 @@ def autolabel(rects, index):
                        ha='center', va='bottom', rotation=45)
 
 letter_counts = {}
+seq_lens = []
 
 #'''
 for seq in dataset.data:
     temp = Counter(seq)
-
+    seq_lens.append(len(seq))
     for count in temp:
         if count in letter_counts:
             letter_counts[count] += temp[count]
@@ -57,22 +59,29 @@ sorted_keys2 = [elem[0] for elem in sorted_data]
 sorted_vals2 = [elem[1] for elem in sorted_data]
 
 
-fig, ax = plt.subplots(2, figsize=(12, 8))
+freq_fig, freq_ax = plt.subplots(2, figsize=(12, 8))
 
 num_vals = len(letter_counts.values())
 
-bars1 = ax[0].bar(np.linspace(0,num_vals,num_vals), sorted_vals1, 1)
-ax[0].set_xticks(np.linspace(0,num_vals,num_vals))
-ax[0].set_xticklabels(sorted_keys1)
-#ax[0].set_ylabel('right / top')
+bars1 = freq_ax[0].bar(np.linspace(0,num_vals,num_vals), sorted_vals1, 1)
+freq_ax[0].set_xticks(np.linspace(0,num_vals,num_vals))
+freq_ax[0].set_xticklabels(sorted_keys1)
+#freq_ax[0].set_ylabel('right / top')
 
 
-bars2 = ax[1].bar(np.linspace(0,num_vals,num_vals), sorted_vals2, 1)
-ax[1].set_xticks(np.linspace(0,num_vals,num_vals))
-ax[1].set_xticklabels(sorted_keys2)
-#ax[1].set_ylabel('left / bottom')
+bars2 = freq_ax[1].bar(np.linspace(0,num_vals,num_vals), sorted_vals2, 1)
+freq_ax[1].set_xticks(np.linspace(0,num_vals,num_vals))
+freq_ax[1].set_xticklabels(sorted_keys2)
+#freq_ax[1].set_ylabel('left / bottom')
 
 #autolabel(bars1, 0)
 #autolabel(bars2, 1)
-fig.savefig("char_frequency.png")
+freq_fig.savefig("char_frequency.png")
+plt.show()
+
+
+len_fig, len_ax = plt.subplots(1, figsize=(12, 8))
+
+len_ax.hist(seq_lens, bins='auto')
+len_fig.savefig("len_hist.png")
 plt.show()
