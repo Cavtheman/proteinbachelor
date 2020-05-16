@@ -1,0 +1,21 @@
+Sæt fokus på downstream task, altså dimensionalitet reduktion for at kunne vurdere performance
+
+Tænk virkelig over hvad vi skal skrive i rapporten. Og begynd at skrive den
+
+Vi har bare ikke trænet nok
+
+skriv til uddannelse@di.ku.dk for at sørge for at deadline er rigtig
+
+Knyt modellerne sammen i rapport, nok ved visualisering
+
+intro for hvorfor det er interessant
+      Det er svært at se ligheder og forskelle
+      Kunne gøre det nemmere ved at repræsentere som vektorer
+
+metode, lstm og cnn
+Sørg for at skrive alle observationer ned
+lav samme figur som unirep
+
+Ville være ret godt at få noget som TAPE til at virke
+
+kig på at initialisere med enten HE eller xavier? (spelling) Måske orthogonal

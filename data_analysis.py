@@ -20,17 +20,6 @@ dataset = Dataset(small_file, max_seq_len, acids=acids)
 
 #base_generator = data.DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
-# autolabel taken from https://matplotlib.org/examples/api/barchart_demo.html
-def autolabel(rects, index):
-    """
-    Attach a text label above each bar displaying its height
-    """
-    for rect in rects:
-        height = rect.get_height()
-        ax[index].text(rect.get_x() + rect.get_width()/2., 1.05*height,
-                '%d' % int(height),
-                       ha='center', va='bottom', rotation=45)
-
 letter_counts = {}
 seq_lens = []
 
@@ -74,8 +63,6 @@ freq_ax[1].set_xticks(np.linspace(0,num_vals,num_vals))
 freq_ax[1].set_xticklabels(sorted_keys2)
 #freq_ax[1].set_ylabel('left / bottom')
 
-#autolabel(bars1, 0)
-#autolabel(bars2, 1)
 freq_fig.savefig("char_frequency.png")
 plt.show()
 

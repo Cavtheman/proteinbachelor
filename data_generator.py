@@ -70,9 +70,10 @@ class Dataset(data.Dataset):
     data : List of Strings
         The entire input file loaded as strings
     '''
-    def __init__(self, filename, max_seq_len, acids="ACDEFGHIKLMNPQRSTVWY-"):
+    def __init__(self, filename, max_seq_len, output_type="onehot", acids="ACDEFGHIKLMNPQRSTVWY-"):
         elem_list = []
         self.acids = acids
+        self.output_type = output_type
         self.acid_dict, self.int_acid_dict = self.__gen_acid_dict__(acids)
         self.max_seq_len = max_seq_len
         # Loading the entire input file into memory
@@ -114,12 +115,15 @@ class Dataset(data.Dataset):
 
         seq = str(seq).ljust(self.max_seq_len+1, self.acids[-1])
         temp_seq = [self.acid_dict[x] for x in seq]
-        tensor_seq = torch.stack(temp_seq[:-1], dim=0).float()#.view(self.max_seq_len, 1, -1)
+        if self.output_type == "embed":
+            tensor_seq = torch.argmax(torch.stack(temp_seq[:-1]), dim=1).long()
+        else:
+            tensor_seq = torch.stack(temp_seq[:-1], dim=0).float()#.view(self.max_seq_len, 1, -1)
 
         # Labels consisting of the index of correct class
         #                                               I
         #                                   CHANGE THIS V TO 1: WHEN FINISHED PREDICTING IDENTITY
-        labels_seq = torch.argmax(torch.stack(temp_seq[:-1]), dim=1).long()#.view(-1, 1)
+        labels_seq = torch.argmax(torch.stack(temp_seq[1:]), dim=1).long()#.view(-1, 1)
         return tensor_seq, labels_seq, valid_elems
 
     '''
