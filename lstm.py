@@ -85,7 +85,7 @@ class LSTM_model(nn.Module):
         #print(lin_in.view(-1,lin_in.size()[2]).size())
         #print(tag_space.size())
 
-        return tag_space, lstm_out
+        return tag_space, lin_in #lstm_out
 
 '''
 Not in use any more
