@@ -1,0 +1,12 @@
+CNN
+onehot skal være farveværdierne
+
+Start med at få den til at predicte sig selv 100%
+
+
+Tilføj bottleneck
+
+
+LSTM
+procceser hveert output for sig og kør hvert igennem linært lag
+
