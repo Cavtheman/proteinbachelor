@@ -4,6 +4,7 @@ import numpy as np
 import torch
 import torch.nn.utils.rnn as rnn
 
+import re
 from torch.utils import data
 import torch.nn.functional as F
 
@@ -70,16 +71,23 @@ class Dataset(data.Dataset):
     data : List of Strings
         The entire input file loaded as strings
     '''
-    def __init__(self, filename, max_seq_len, acids="ACDEFGHIKLMNPQRSTVWY-"):
+    def __init__(self, filename, max_seq_len, output_type="onehot", acids="ACDEFGHIKLMNPQRSTVWY-", get_prot_class=False):
         elem_list = []
+        label_list = []
         self.acids = acids
+        self.get_prot_class = get_prot_class
+        self.output_type = output_type
         self.acid_dict, self.int_acid_dict = self.__gen_acid_dict__(acids)
         self.max_seq_len = max_seq_len
         # Loading the entire input file into memory
+        prot_class_re = re.compile(r" (\w)\.\d+")
         for i, elem in enumerate(SeqIO.parse(filename, "fasta")):
-            if self.__is_legal_seq__(elem.seq):
-                elem_list.append(elem.seq)
+            if self.__is_legal_seq__(elem.seq.upper()):
+                elem_list.append(elem.seq.upper())
+                if get_prot_class:
+                    label_list.append(prot_class_re.search(elem.description).group(1))
         self.data = elem_list
+        self.prot_labels = label_list
 
     '''
     Method to get the length of the dataset
@@ -92,12 +100,12 @@ class Dataset(data.Dataset):
         return len(self.data)
 
     '''
-    Preprocesses a sequence into something usable by an LSTM
+    Preprocesses a sequence into something usable by an LSTM and outputs it
 
     Parameters
     ----------
-    seq : String
-        The sequence to be prepared
+    index : Int
+        Index to take the data from
 
     Returns
     ----------
@@ -109,29 +117,24 @@ class Dataset(data.Dataset):
     valid_elems : Int
         Integer value representing the length of the sequence before padding
     '''
-    def __prepare_seq__(self, seq):
-        valid_elems = min(len(seq)+1, self.max_seq_len)
+    def __getitem__(self, index):
+        seq = self.data[index]
+        #print(seq)
+        #print(self.acid_dict.keys())
+        valid_elems = min(len(seq), self.max_seq_len)
 
         seq = str(seq).ljust(self.max_seq_len+1, self.acids[-1])
         temp_seq = [self.acid_dict[x] for x in seq]
-        tensor_seq = torch.stack(temp_seq[:-1], dim=0).float()#.view(self.max_seq_len, 1, -1)
+        if self.output_type == "embed":
+            tensor_seq = torch.argmax(torch.stack(temp_seq[:-1]), dim=1).long()
+        else:
+            tensor_seq = torch.stack(temp_seq[:-1], dim=0).float()#.view(self.max_seq_len, 1, -1)
 
         # Labels consisting of the index of correct class
+        #                                               |
+        #                                   CHANGE THIS V TO 1: WHEN FINISHED PREDICTING IDENTITY
         labels_seq = torch.argmax(torch.stack(temp_seq[1:]), dim=1).long()#.view(-1, 1)
-        return tensor_seq, labels_seq, valid_elems
-
-    '''
-    Used by the data_generator class to get items
-
-    Parameters
-    ----------
-    index : Int
-        Index to take the data from
-
-    Returns
-    ----------
-    Tuple : See __prepare_seq__
-        A prepared sequence from a specific index in the dataset
-    '''
-    def __getitem__(self, index):
-        return self.__prepare_seq__(self.data[index])
+        if self.get_prot_class:
+            return tensor_seq, labels_seq, valid_elems, self.prot_labels[index]
+        else:
+            return tensor_seq, labels_seq, valid_elems
