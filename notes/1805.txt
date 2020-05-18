@@ -1,0 +1,31 @@
+Måske er problem med CNN for meget reduktion i dimensioner
+
+Eksperimenter med forskellige hyperparameters, træn måske downstream model
+
+Downstream behøver ikke være specielt kompliceret, måske bare linear eller logistisk regression
+
+Brug måske stabilitets datasæt fra TAPE til at træne om at predicte stabilitet, brug igen simpel model
+
+TAPE har framework til model, kig evt på det
+
+Det ville være rigtig godt at få TAPE med
+
+Lav evt nogle flere eksperimenter med CNN
+
+Lad være med at kigge på initialisering
+
+Skriv om at LSTM er svære at træne, "knæk"
+
+Tænk over rød tråd i rapport
+
+Intro: hvorfor er det interessant, kig på unirep of TAPE
+Skriv hvad protein, LSTM, CNN er
+Hypotese, LSTM
+Sidste del kunne være at CNN kunne være ligeså god?
+
+Kig måske at træne LSTM begge veje?
+
+Med CNN kig måske på dilated convolutions, skriv i hvert fald om det for at få længere dependencies
+
+konklusion/diskussion
+Skriv hvad man ellers kunne have gjort hvis man evt havde haft mere tid
