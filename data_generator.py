@@ -110,7 +110,8 @@ class Dataset(data.Dataset):
     Returns
     ----------
     tensor_seq : Tensor of size max_seq_len x len(acid_dict)
-        The padded, preprocessed Tensor of one-hot encoded acids
+        The padded, preprocessed Tensor of one-hot encoded acids.
+        If output_type="embed" then it will have size max_seq_len
     labels_seq : Tensor of size max_seq_len
         Contains the labels for each element in tensor_seq
         as the correct index of the one-hot encoding
