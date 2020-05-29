@@ -3,44 +3,44 @@ Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: master.aux
 The style file: plain.bst
 Database file #1: latex/references.bib
-You've used 1 entry,
+You've used 3 entries,
             2118 wiz_defined-function locations,
-            502 strings with 4237 characters,
-and the built_in function-call counts, 478 in all, are:
-= -- 35
-> -- 43
+            515 strings with 4647 characters,
+and the built_in function-call counts, 1155 in all, are:
+= -- 98
+> -- 84
 < -- 0
-+ -- 17
-- -- 16
-* -- 40
-:= -- 90
-add.period$ -- 3
-call.type$ -- 1
-change.case$ -- 11
++ -- 33
+- -- 30
+* -- 92
+:= -- 203
+add.period$ -- 8
+call.type$ -- 3
+change.case$ -- 24
 chr.to.int$ -- 0
-cite$ -- 1
-duplicate$ -- 14
-empty$ -- 29
-format.name$ -- 16
-if$ -- 90
+cite$ -- 3
+duplicate$ -- 32
+empty$ -- 80
+format.name$ -- 30
+if$ -- 227
 int.to.chr$ -- 0
-int.to.str$ -- 1
-missing$ -- 1
-newline$ -- 8
-num.names$ -- 2
-pop$ -- 15
+int.to.str$ -- 3
+missing$ -- 2
+newline$ -- 17
+num.names$ -- 6
+pop$ -- 31
 preamble$ -- 1
-purify$ -- 10
+purify$ -- 21
 quote$ -- 0
-skip$ -- 7
+skip$ -- 22
 stack$ -- 0
-substring$ -- 5
-swap$ -- 2
+substring$ -- 46
+swap$ -- 4
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 4
+type$ -- 12
 warning$ -- 0
-while$ -- 2
-width$ -- 2
-write$ -- 12
+while$ -- 8
+width$ -- 4
+write$ -- 31
