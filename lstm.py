@@ -28,7 +28,7 @@ class LSTM_model(nn.Module):
     linear : nn.Linear
         A single linear layer for converting the LSTMs output to the same size as the input
     '''
-    def __init__(self, input_size, embed_size,  hidden_layer_size, nr_hidden_layers, max_seq_len, batch_size, processor, dropout=0):
+    def __init__(self, input_size, embed_size,  hidden_layer_size, nr_hidden_layers, max_seq_len, batch_size, processor, bidir=False, dropout=0):
         super(LSTM_model, self).__init__()
         self.input_size = input_size
         self.embed_size = embed_size
@@ -36,19 +36,21 @@ class LSTM_model(nn.Module):
         self.nr_hidden_layers = nr_hidden_layers
         self.max_seq_len = max_seq_len
         self.batch_size = batch_size
+        self.num_dir = 2 if bidir else 1
         self.processor = processor
-        self.model = nn.LSTM(embed_size, hidden_layer_size, nr_hidden_layers, batch_first=False, dropout=dropout)
+        self.model = nn.LSTM(embed_size, hidden_layer_size, nr_hidden_layers, batch_first=False, dropout=dropout, bidirectional=bidir)
 
         self.embed = nn.Embedding(input_size, embed_size)
 
-        self.linear = nn.Linear(hidden_layer_size, input_size)
+        self.linear = nn.Linear(hidden_layer_size*self.num_dir, input_size)
 
 
     def init_hidden(self):
-        return (torch.randn(self.nr_hidden_layers,
+
+        return (torch.randn(self.nr_hidden_layers*self.num_dir,
                             self.batch_size,
                             self.hidden_layer_size).to(self.processor),
-                torch.randn(self.nr_hidden_layers,
+                torch.randn(self.nr_hidden_layers*self.num_dir,
                             self.batch_size,
                             self.hidden_layer_size).to(self.processor))
     '''
@@ -68,22 +70,14 @@ class LSTM_model(nn.Module):
         Used for dimensionality reduction later to see differences between proteins
     '''
     def forward(self, input_data, valid_elems):
-
         embedding = self.embed(input_data)
-
         packed = rnn.pack_padded_sequence(embedding, valid_elems, enforce_sorted=False)
 
         lstm_out, (hn, cn) = self.model(packed, self.init_hidden())
-
         lin_in, _ = rnn.pad_packed_sequence(lstm_out, total_length=self.max_seq_len)
 
         tag_space = self.linear(lin_in.view(-1,lin_in.size()[2]))
         tag_space = tag_space.view(self.max_seq_len, lin_in.size()[1], -1)
-        #tag_space = self.linear(lin_in)
-
-        #print(lin_in.size())
-        #print(lin_in.view(-1,lin_in.size()[2]).size())
-        #print(tag_space.size())
 
         return tag_space, lin_in #lstm_out
 
