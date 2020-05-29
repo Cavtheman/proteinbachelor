@@ -1,20 +1,8 @@
 \begin{thebibliography}{1}
 
-\bibitem{bert}
-Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova.
-\newblock Bert: Pre-training of deep bidirectional transformers for language
-  understanding, 2018.
-
-\bibitem{scope}
-Naomi~K Fox, Steven~E Brenner, and John-Marc Chandonia.
-\newblock Scope: Structural classification of proteins—extended, integrating
-  scop and astral data and classification of new structures.
-\newblock {\em Nucleic acids research}, 42(D1):D304--D309, 2013.
-
-\bibitem{tape}
-Roshan Rao, Nicholas Bhattacharya, Neil Thomas, Yan Duan, Xi~Chen, John Canny,
-  Pieter Abbeel, and Yun~S Song.
-\newblock Evaluating protein transfer learning with tape.
-\newblock In {\em Advances in Neural Information Processing Systems}, 2019.
+\bibitem{intro}
+Shaojie Bai, J.~Zico Kolter, and Vladlen Koltun.
+\newblock An empirical evaluation of generic convolutional and recurrent
+  networks for sequence modeling, 2018.
 
 \end{thebibliography}

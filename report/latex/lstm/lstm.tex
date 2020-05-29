@@ -1,0 +1,14 @@
+%Theory behind RNN
+%lstm as improvement on rnn
+%Theory of lstm, inner workings
+%Use of hidden layers
+
+Typical neural networks do not have a state that allows them to "remember" previous data points, the basic idea behind a recurrent neural network (RNN for short) is that it has a hidden state representing its memory regarding previous data. It will then be able to make decisions regarding new data, taking previous data into account.
+
+If we take a look at the sentences below, the idea is that the RNN would first be able to understand the nearby context; that the next word is supposed to be a reason for staying home. And also understand the larger context, (that the pandemic is that reason) without needing to remember unnecessary stuff like the words "is", "a" and so on. It should then be able to predict that pandemic would be the next word in the sentence.
+
+\begin{itemize}
+  \item There is a pandemic. I had to stay home from university because of the \_\_\_
+\end{itemize}
+
+Basic RNNs are
