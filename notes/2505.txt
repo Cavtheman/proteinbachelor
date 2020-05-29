@@ -1,0 +1,41 @@
+BCE er ikke rigtigt til CNN
+
+BCE kræver at modellen skal være over 0.5 for at den bliver klassificeret som rigtig
+
+Kig på CNN decoding, gør det måske i forkert dimension?
+RELU måske efter avg_pool?
+
+Prøv at lav en enkelt conv i stedet for 2, prøv at lav større kernel size
+
+Lav bottleneck mindre skarp
+
+Behøver ikke gå ned til 1 farvekanal, reshape i stedet til længere vektor
+
+Få den fucking downstream ting til at virke
+
+Vil helt klart få spørgsmål til backprop
+
+optimiser bruger den gradient til at optimere
+
+Hvorfor hedder det stochastic gradient descent i stedet for bare gradient descent
+
+Hypotese: Kan CNN fungere ligeså godt som LSTM?
+
+Læs unirep intro som inspiration
+
+Snak om historie med sprog og repræsentationslæring, derefter metode
+
+Lav klar linje for hvad der er "ny viden"
+
+Snak om sådan noget som hyperparameters i Resultat afsnit
+
+Pointer til resultater:
+Embeddings
+
+Historier:
+Start med LSTM og at reproducere state of the art, derefter snak om CNN
+Eller, start med begge to og sammenlign, ideelt med downstream model
+
+Start måske med at lave overskrifter, og små stikord
+
+Send evt dele af rapport for feedback til Wouter. Send senest mandag ved 4-tiden
