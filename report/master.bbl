@@ -1,9 +1,8 @@
 \begin{thebibliography}{1}
 
-\bibitem{tape}
-Roshan Rao, Nicholas Bhattacharya, Neil Thomas, Yan Duan, Xi~Chen, John Canny,
-  Pieter Abbeel, and Yun~S Song.
-\newblock Evaluating protein transfer learning with tape.
-\newblock In {\em Advances in Neural Information Processing Systems}, 2019.
+\bibitem{intro}
+Shaojie Bai, J.~Zico Kolter, and Vladlen Koltun.
+\newblock An empirical evaluation of generic convolutional and recurrent
+  networks for sequence modeling, 2018.
 
 \end{thebibliography}
