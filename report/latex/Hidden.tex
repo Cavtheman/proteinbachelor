@@ -7,7 +7,12 @@ Presenting this as a function, the sum of the multiplied weights and added bias 
 \begin{align}
 	y_i &= \sum^N_{j=1} x_jw_{ij} + b_i\\
 	a_i &= a(y_i) \\
-	a_i &=
+	a_i &=\left\{ \begin{matrix}
+		a_i \geq 0 = a_i \\
+		\\
+		a_i < 0 = 0
+	\end{matrix}
+	\right.
 \end{align}
 
 
@@ -18,4 +23,4 @@ Presenting this as a function, the sum of the multiplied weights and added bias 
 \end{figure}
 
 \noindent
-When training the neural network, the only parameter which is changing is the weights. Since the weight from the neuron(1) is multiplied with the weight connecting to neuron(2), the magnitude of this weight defines how much influence neuron(1) has on neuron(2). Thus, the quality of the model, depends on how good it is at adjusting the weights, and by that learning the model to map input to the correct output.
+When training the neural network, the only parameter which is changing is the weights. Since the weight from the neuron(1) is multiplied with the weight connecting to neuron(2), the magnitude of this weight defines how much influence neuron(1) has on neuron(2). Thus, the quality of the model, depends on how good it is at adjusting the weights, and by that learning the model to map input to a nice estimation of a correct output.
