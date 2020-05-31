@@ -28,7 +28,7 @@ class LSTM_model(nn.Module):
     linear : nn.Linear
         A single linear layer for converting the LSTMs output to the same size as the input
     '''
-    def __init__(self, input_size, embed_size,  hidden_layer_size, nr_hidden_layers, max_seq_len, batch_size, processor, bidir=False, dropout=0):
+    def __init__(self, input_size=23, embed_size=10,  hidden_layer_size=512, nr_hidden_layers=1, max_seq_len=500, batch_size=64, processor="cuda", bidir=False, dropout=0):
         super(LSTM_model, self).__init__()
         self.input_size = input_size
         self.embed_size = embed_size
@@ -38,6 +38,7 @@ class LSTM_model(nn.Module):
         self.batch_size = batch_size
         self.num_dir = 2 if bidir else 1
         self.processor = processor
+        self.dropout = dropout
         self.model = nn.LSTM(embed_size, hidden_layer_size, nr_hidden_layers, batch_first=False, dropout=dropout, bidirectional=bidir)
 
         self.embed = nn.Embedding(input_size, embed_size)
@@ -81,6 +82,22 @@ class LSTM_model(nn.Module):
 
         return tag_space, lin_in #lstm_out
 
+    def save(self, filename):
+        args_dict = {
+            "input_size": self.input_size,
+            "embed_size": self.embed_size,
+            "hidden_layer_size": self.hidden_layer_size,
+            "nr_hidden_layers": self.nr_hidden_layers,
+            "max_seq_len": self.max_seq_len,
+            "batch_size": self.batch_size,
+            "processor": self.processor,
+            "bidir": True if self.num_dir == 2 else False,
+            "dropout": self.dropout
+        }
+        torch.save({
+            "state_dict": self.state_dict(),
+            "args_dict": args_dict
+        }, filename) #model.state_dict(), "temp_best_model.pth")
 '''
 Not in use any more
 '''
