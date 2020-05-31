@@ -1,4 +1,4 @@
-The Rectified linear Unit (RelU) is a very simple activation function, none the less, still a very useful function. When ReLU i called with some input, it will go through all values of the input, turning all negative values to 0, and all positive number, simply keeps the value.
+The Rectified Linear Unit (RelU) is a very simple activation function, none the less, still a very useful function. When ReLU is called with some input, it will go through all values of the input, turning all negative values to 0, and all positive numbers simply keep their value.
 
 $$
 ReLU(input) = max(0,input)
@@ -7,9 +7,9 @@ or
 $$
 ReLU(input) =
 \left\{ \begin{matrix}
-		input& \geq& 0& =& input& \\
-		\\
-		input& <& 0& =& 0&
+        input& \geq& 0& =& input& \\
+        \\
+        input& <& 0& =& 0&
 \end{matrix}
 \right.
 $$
@@ -18,5 +18,5 @@ $$
 \begin{figure}[!ht]
   \centering
   \includegraphics[scale=0.4]{latex/IMGs/relu.png}
-  \caption{Shows how a 1x3 mean filter acts on a 1x9 feature map, with stride 1}\label{Baseline:before}
+  \caption{Example of how ReLU() works}\label{Baseline:before}
 \end{figure}

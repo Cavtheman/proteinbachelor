@@ -1,0 +1,11 @@
+When a model is run on some input, it predicts some output $\hat{y}$, which the model wants to evaluate against the desired value $y$. This evaluation happens, with some error function. This error functions, outputs some loss-value which is dependent of how much $\hat{y}$ deviates from $y$. The greater the deviation is, the greater the loss will become.
+Based on the size of the loss, the models knows, with how great magnitude it has to adjust its parameters (weights and biases). The goal is to adjust the parameters, so the predicted output $\hat{y}$, gets as close to the desired output $y$.\\
+
+\noindent
+This is done with backpropagation. Trying every single combination of weights, in the pursuit of finding the best fitting weight for a specific problem, is a very comprehensive task, even for a computer. The idea, is to find the minimum value of which the loss function can take. Calculating the gradient is a very effective way of finding this minimum. Finding this minimum can be achieved with various gradient decent aglorithms. the gradient describes the momentum of the function at a specific point in the graph. Assuming we have a function $f$, the following gradient of this function is $f'$. If $f'$ takes some input x, and $f'(x)$ yields a negative result, it means that the graph currently has a negative momentum at this current point. Thus, to get closer to a minimum, we have to increase the value of x. \\
+
+\noindent
+But a gradient decent algorithm is an algorithm which finds the minimum given it has a gradient available, it is not the function finding the gradient. Backpropagation is the method of computing the magnitude each weights gradient has on the final error. The way this is done is by propagating backwards through the layers, determining how each weight affects to finale output.
+
+
+
