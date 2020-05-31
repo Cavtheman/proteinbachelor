@@ -17,6 +17,10 @@ class CNN(nn.Module):
         self.conv3 = nn.Conv1d(14, 8, 5, padding=1)#self.conv(8, 4, 5)
 
         self.conv4 = nn.Conv1d(8, 4, 5, padding=1)
+        
+        self.conv_mid = nn.Conv1d(4, 4, 5, padding=2)
+        
+        x = self.conv_mid(x)
 
         #Decode Layer
         self.conv5 = nn.Conv1d(4, 8, 5, padding=1)#self.conv(4, 8, 5)
@@ -58,6 +62,8 @@ class CNN(nn.Module):
   
     def Decode(self,x):
 
+        x = self.conv_mid(x)
+        
         x_con = self.Up_sample_first(x)
         x_con = F.relu(self.conv5(x_con))
 
