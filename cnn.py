@@ -5,9 +5,9 @@ import torch.nn.functional as F
 
 class CNN(nn.Module):
 
-    def __init__(self, latent_space):
+    def __init__(self, latent_dim):
         super(CNN, self).__init__()
-        self.latent_dim = latent_space
+        self.latent_dim = latent_dim
         self.embed = nn.Embedding(23, 30)
 
         #Encode Layer
@@ -76,7 +76,7 @@ class CNN(nn.Module):
         x = self.Encode(init_data)
         x_con = self.Decode(x)
         #x_con = torch.sigmoid(x_con)
-        return x_con, torch.flatten(x)
+        return x_con, torch.flatten(x, start_dim=1)
 
     def save(self, filename):
         args_dict = {
