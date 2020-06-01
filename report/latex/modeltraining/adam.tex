@@ -1,0 +1,7 @@
+The optimizer we are using in our models is the Adam (adaptive moment estimation)  optimizer. The Adam optimizer is based on stochastic gradient descent\cite{adam}, therefor Adam has also an random probability of picking a gradient in the sample data. As well as SGD, Adam is well suited for objective functions, which require some scalar parameter maximization or minimization. \\
+
+\noindent
+when talking about optimizers in neural networks, learning rate and momentum are keywords in this context. Learning rate is parameter, which defines the rate of change given a gradient. This means, that the greater the learning rate is, the greater is the change will become, when talking about gradient descent.
+
+\noindent
+Adam differentiate from SGD, the way it dynamicly can adjust the magnitude of how it updates the scalar parameters based on the momentum of the gradient. this means that Adam is capable of computing adaptive learning rates for different parameters\cite{adam}. Thus, for each iteration of update in the neural network, the learning rate will be updated as well. To simplify what this means; if a gradient with respect to some parameter, has not changed for a few iterations, the learning rate for that specific gradient will be decreased.
