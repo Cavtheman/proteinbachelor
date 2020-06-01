@@ -8,6 +8,7 @@ class CNN(nn.Module):
     def __init__(self, latent_space):
         super(CNN, self).__init__()
         self.latent_dim = latent_space
+
         self.embed = nn.Embedding(23, 30)
 
         #Encode Layer
@@ -16,12 +17,16 @@ class CNN(nn.Module):
         self.conv3 = nn.Conv1d(14, 8, 5, padding=1)#self.conv(8, 4, 5)
 
         self.conv4 = nn.Conv1d(8, 4, 5, padding=1)
+        
+        self.conv_mid = nn.Conv1d(4, 4, 5, padding=2)
+        
+        x = self.conv_mid(x)
 
         #Decode Layer
         self.conv5 = nn.Conv1d(4, 8, 5, padding=1)#self.conv(4, 8, 5)
         self.conv6 = nn.Conv1d(8, 14, 5, padding=1)#self.conv(8, 14, 5)
         self.conv7 = nn.Conv1d(14, 20, 5, padding=1)#self.conv(14, 20, 5)
-        self.conv8 = nn.Conv1d(20, 23, 5, padding=1)#self.conv(20, 23, 5)
+        self.conv8 = nn.Conv1d(20, 23, 5, padding=2)#self.conv(20, 23, 5)
 
         #self.Max_pool = torch.nn.MaxPool1d(2,return_indices=True)
         self.Avg_pool = torch.nn.AvgPool1d(2)
@@ -32,7 +37,7 @@ class CNN(nn.Module):
         self.Up_sample_mid = nn.Upsample(size=None, scale_factor=2, align_corners=None)
         self.Up_sample_last = nn.Upsample(size=500, scale_factor=None, align_corners=None)
 
-    #self.UnPool = nn.MaxUnpool1d(2, stride=2)
+        #self.UnPool = nn.MaxUnpool1d(2, stride=2)
     
     def initialize(self, input_data):
         init_x = self.embed(input_data)
@@ -57,26 +62,28 @@ class CNN(nn.Module):
   
     def Decode(self,x):
 
-        x_con = F.relu(self.conv5(x))
-        x_con = self.Up_sample_first(x_con)
+        x = self.conv_mid(x)
+        
+        x_con = self.Up_sample_first(x)
+        x_con = F.relu(self.conv5(x_con))
 
+        x_con = self.Up_sample_mid(x_con)
         x_con = F.relu(self.conv6(x_con))
-        x_con = self.Up_sample_mid(x_con)
 
+        x_con = self.Up_sample_mid(x_con)
         x_con = F.relu(self.conv7(x_con))
-        x_con = self.Up_sample_mid(x_con)
 
-        x_con = F.relu(self.conv8(x_con))
         x_con = self.Up_sample_last(x_con)
+        x_con = F.relu(self.conv8(x_con))
 
-        return x_con
+    return x_con
 
     def forward(self, data):
         init_data = self.initialize(data)
         x = self.Encode(init_data)
         x_con = self.Decode(x)
         #x_con = torch.sigmoid(x_con)
-        return x_con, torch.flatten(x)
+        return x_con, torch.flatten(x, start_dim=1)
 
     def save(self, filename):
         args_dict = {

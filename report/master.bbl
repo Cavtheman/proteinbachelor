@@ -1,8 +1,33 @@
 \begin{thebibliography}{1}
 
+\bibitem{unirep}
+Ethan~C. Alley, Grigory Khimulya, Surojit Biswas, Mohammed AlQuraishi, and
+  George~M. Church.
+\newblock Unified rational protein engineering with sequence-only deep
+  representation learning.
+\newblock {\em bioRxiv}, 2019.
+
 \bibitem{intro}
 Shaojie Bai, J.~Zico Kolter, and Vladlen Koltun.
 \newblock An empirical evaluation of generic convolutional and recurrent
   networks for sequence modeling, 2018.
+
+\bibitem{rnn}
+Andrej Karpathy.
+\newblock The unreasonable effectiveness of recurrent neural networks, 2015.
+
+\bibitem{tape}
+Roshan Rao, Nicholas Bhattacharya, Neil Thomas, Yan Duan, Xi~Chen, John Canny,
+  Pieter Abbeel, and Yun~S Song.
+\newblock Evaluating protein transfer learning with tape.
+\newblock In {\em Advances in Neural Information Processing Systems}, 2019.
+
+\bibitem{stability}
+Gabriel~J Rocklin, Tamuka~M Chidyausiku, Inna Goreshnik, Alex Ford, Scott
+  Houliston, Alexander Lemak, Lauren Carter, Rashmi Ravichandran, Vikram~K
+  Mulligan, Aaron Chevalier, et~al.
+\newblock Global analysis of protein folding using massively parallel design,
+  synthesis, and testing.
+\newblock {\em Science}, 357(6347):168--175, 2017.
 
 \end{thebibliography}
