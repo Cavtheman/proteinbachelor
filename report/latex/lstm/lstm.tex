@@ -21,7 +21,7 @@ The last two both output in a "many to many" fashion, but how they do it is sign
 \begin{figure}[ht]
     \centering
         \includegraphics[width=0.5\textwidth]{latex/imgs/rnn_types.png}
-    \caption{A visual representation of the output types described. Image Source:\cite{rnn}}
+    \caption{A visual representation of the output types described. The one-to-one is how fully connected networks work, for comparison. Image Source:\cite{rnn}}
 \end{figure}
 
 The basic structure of an RNN is quite simple, consisting of a single linear layer and activation function, which is usually the $tanh$ function. The network is interesting in that each "cell" passes along a hidden state as input to the next cell. This means that each cell takes both the current input element and the previous cell's output and concatenates them and uses this as input to the linear layer.
@@ -37,7 +37,7 @@ One major issue with using basic RNNs is the fact that they suffer quite heavily
 
 To show this, let's consider the following example. We have the prediction vector $h_s$ at each timestep $s$. The gradient when using the backprop through time algorithm looks as follows:
 \begin{align}
-    \frac{\partial E}{\partial W} = \sum_{s=0}{T} \frac{\partial E_s}{\partial W}
+    \frac{\partial E}{\partial W} = \sum_{s=0}^{T} \frac{\partial E_s}{\partial W}
 \end{align}
 With network weights $W$ for the concatenated input vectors, and errors $E$ through a sequence of length $T$. We will define the input vectors as follows. $c_s$ for the recurrent vector that the network passes forward, and $x_s$ for the input vector, both at timestep $s$.
 This gradient updates the model weights according to the following formula, with a learning rate $\alpha$:
@@ -46,7 +46,7 @@ This gradient updates the model weights according to the following formula, with
 \end{align}
 If we use basic gradient descent, then the gradient of the error at an arbitrary step $s$ is given as follows:
 \begin{align}
-    \frac{\partial E_s}{\partial W} &= \frac{\partial E_s}{\partial h_s}\frac{\partial h_s}{\partial c_s} \cdots \frac{\partial c_2}{\partial c_1} \frac{\partial c_1{\partial W} \\
+    \frac{\partial E_s}{\partial W} &= \frac{\partial E_s}{\partial h_s}\frac{\partial h_s}{\partial c_s} \cdots \frac{\partial c_2}{\partial c_1} \frac{\partial c_1}{\partial W} \\
     &= \frac{\partial E_s}{\partial h_s}\frac{\partial h_s}{\partial c_s} \left(\prod_{k=2}^s\frac{\partial c_s}{\partial c_{s-1}} \frac{\partial c_1} {\partial W} \right)
 \end{align}
 Now we want to show that as $s \rightarrow \infty$ the derivative $\rightarrow 0$. Since the network weights $W$ are the concatenated $c$ and $x$ vectors, we can rewrite $c_s$:
@@ -61,10 +61,10 @@ Plugging these expressions in, we get the following expression:
 \begin{align}
     \frac{\partial E_s}{\partial W} &= \frac{\partial E_s}{\partial h_s}\frac{\partial h_s}{\partial c_s} \left(\prod_{k=2}^s tanh'(W_c \cdot c_{s-1} + W_x \cdot x_s) \cdot W_c \right)
 \end{align}
-Since the derivative of the tangent is always strictly $<1$, the expression will tend towards zero as $s \rightarrow \infty$. However, if the weights $W_c$ are significantly large, they may cause the expression to instead explode towards $\infty$ as $s \rightarrow \infty$.
+Since the derivative of the tangent is always strictly $<1$, the expression will tend towards zero as $s \rightarrow \infty$. However, if the weights $W_c$ are significantly large, they may cause the expression to instead explode towards $\infty$ as $s \rightarrow \infty$.\\
 \begin{figure}[ht]
     \centering
-        \includegraphics[width=0.5\textwidth]{latex/imgs/tanh_deriv.png}
+        \includegraphics[width=0.75\textwidth]{latex/imgs/tanh_deriv.png}
     \caption{Showing the derivative of the tanh function. Image Source:\cite{grad}}
 \end{figure}
 If we take a look back at the formula used to update the weights, we can easily see the problem:
