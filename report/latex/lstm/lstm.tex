@@ -10,9 +10,9 @@ If we take a look at the sentences below, the idea is that the RNN would first b
 	\item There is a pandemic. I had to stay home from university because of the \_\_\_
 \end{itemize}
 
-RNNs are extremely flexible in how they can be used. There are, in fact, four main ways they transform the input into something usable.
+RNNs are extremely flexible in how they can be used. There are, in fact, four main ways they transform the input into something usable. 
 
-The first is in a "one to many" fashion, in which they take a single input and output a sequence. This could be useful for tasks like generating descriptions based on fixed size inputs such as images.
+The first is in a "one to many" fashion, in which they take a single input and output a sequence. This could be useful for tasks like generating descriptions based on fixed size inputs such as images. 
 
 The second is in a "many to one" fashion in which the input is a sequence, and the network outputs a single result a the end. This is useful in cases where an entire sequence has a single class to be predicted.
 
@@ -35,4 +35,17 @@ The basic structure of an RNN is quite simple, consisting of a single linear lay
 \subsubsection{The exploding/vanishing gradient problem}
 One major issue with using basic RNNs is the fact that they suffer quite heavily from the exploding/vanishing gradient problem. This problem arises from the fact that very large gradients and gradients very close to zero tend to approach infinity and zero respectively, as they are multiplied together during backpropagation.
 
-To show this, let's consider an RNN network, which for simplicitys sake has a single variable
+To show this, let's consider the following example. We have the prediction vector $h_s$ at each timestep $s$. The gradient when using the backprop through time algorithm looks as follows:
+\begin{align}
+	\frac{\partial E}{\partial W} = \sum_{t=0}{T} \frac{\partial E_t}{\partial W}
+\end{align}
+With network weights $W$ for the concatenated input vectors, and errors $E$ through a sequence of length $T$. We will define the input vectors as follows. $c_s$ for the recurrent vector that the network passes forward, and $x_s$ for the input vector, both at timestep $s$.
+This gradient updates the model weights according to the following formula, with a learning rate \alpha:
+\begin{align}
+	W \leftarrow W - \alpha \frac{\partial E}{\partial W}
+\end{align}
+If we use basic gradient descent, then the gradient of the error at an arbitrary step $s$ is given as follows:
+\begin{align}
+	\frac{\partial E_s}{\partial W} &= \frac{\partial E_s}{\partial h_s}\frac{\partial h_s}{\partial c_s} \cdots \frac{\partial c_2}{\partial c_1} \frac{\partial c_1{\partial W}
+	&= \frac{\partial E_s}{\partial h_s}\frac{\partial h_s}{\partial c_s} \left(\prod_{t=2}^s\frac{\partial c_t}{\partial c_{t-1}} \frac{\partial c_1} {\partial W} \right)
+\end{align}
