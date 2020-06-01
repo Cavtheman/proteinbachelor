@@ -30,4 +30,9 @@ Gabriel~J Rocklin, Tamuka~M Chidyausiku, Inna Goreshnik, Alex Ford, Scott
   synthesis, and testing.
 \newblock {\em Science}, 357(6347):168--175, 2017.
 
+\bibitem{grad}
+Chi-Feng Wang.
+\newblock The vanishing gradient problem.
+\newblock {\em Towards Data Science}, 2019.
+
 \end{thebibliography}

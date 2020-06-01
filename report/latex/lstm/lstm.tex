@@ -7,7 +7,7 @@ Typical neural networks do not have a state that allows them to "remember" previ
 If we take a look at the sentences below, the idea is that the RNN would first be able to understand the nearby context; that the next word is supposed to be a reason for staying home. And also understand the larger context, (that the pandemic is that reason) without needing to remember unnecessary stuff like the words "is", "a" and so on. It should then be able to predict that pandemic would be the next word in the sentence.
 
 \begin{itemize}
-	\item There is a pandemic. I had to stay home from university because of the \_\_\_
+    \item There is a pandemic. I had to stay home from university because of the \_\_\_
 \end{itemize}
 
 RNNs are extremely flexible in how they can be used. There are, in fact, four main ways they transform the input into something usable.
@@ -18,21 +18,57 @@ The second is in a "many to one" fashion in which the input is a sequence, and t
 
 The last two both output in a "many to many" fashion, but how they do it is significantly different. The first case outputs a completely new sequence that is not neccesarily the same length as the input sequence, after having seen the entire input. This is useful for networks trying to represent the data in a different way. The last case is the one that will be described further down in this report. This case outputs an element of a new sequence for each element in the input. This means that for each output element, the RNN only knows about previous elements. This makes it the perfect candidate for next token prediction.
 
-\begin{figure}[h]
-	\centering
-		\includegraphics[width=0.5\textwidth]{latex/imgs/rnn_types.png}
-  	\caption{A visual representation of the output types described. Image Source:\cite{rnn}}
+\begin{figure}[ht]
+    \centering
+        \includegraphics[width=0.5\textwidth]{latex/imgs/rnn_types.png}
+    \caption{A visual representation of the output types described. The one-to-one is how fully connected networks work, for comparison. Image Source:\cite{rnn}}
 \end{figure}
 
 The basic structure of an RNN is quite simple, consisting of a single linear layer and activation function, which is usually the $tanh$ function. The network is interesting in that each "cell" passes along a hidden state as input to the next cell. This means that each cell takes both the current input element and the previous cell's output and concatenates them and uses this as input to the linear layer.
 
-\begin{figure}[h]
-	\centering
-		\includegraphics[width=0.5\textwidth]{latex/imgs/rnn.png}
-  	\caption{A visual representation of the inner structure of an RNN. Image Source:\cite{rnn}}
+\begin{figure}[ht]
+    \centering
+        \includegraphics[width=0.5\textwidth]{latex/imgs/rnn.png}
+    \caption{A visual representation of the inner structure of an RNN. Image Source:\cite{rnn}}
 \end{figure}
 
 \subsubsection{The exploding/vanishing gradient problem}
 One major issue with using basic RNNs is the fact that they suffer quite heavily from the exploding/vanishing gradient problem. This problem arises from the fact that very large gradients and gradients very close to zero tend to approach infinity and zero respectively, as they are multiplied together during backpropagation.
 
-To show this, let's consider an RNN network, which for simplicitys sake has a single variable
+To show this, let's consider the following example. We have the prediction vector $h_s$ at each timestep $s$. The gradient when using the backprop through time algorithm looks as follows:
+\begin{align}
+    \frac{\partial E}{\partial W} = \sum_{s=0}^{T} \frac{\partial E_s}{\partial W}
+\end{align}
+With network weights $W$ for the concatenated input vectors, and errors $E$ through a sequence of length $T$. We will define the input vectors as follows. $c_s$ for the recurrent vector that the network passes forward, and $x_s$ for the input vector, both at timestep $s$.
+This gradient updates the model weights according to the following formula, with a learning rate $\alpha$:
+\begin{align}
+    W \leftarrow W - \alpha \frac{\partial E}{\partial W}
+\end{align}
+If we use basic gradient descent, then the gradient of the error at an arbitrary step $s$ is given as follows:
+\begin{align}
+    \frac{\partial E_s}{\partial W} &= \frac{\partial E_s}{\partial h_s}\frac{\partial h_s}{\partial c_s} \cdots \frac{\partial c_2}{\partial c_1} \frac{\partial c_1}{\partial W} \\
+    &= \frac{\partial E_s}{\partial h_s}\frac{\partial h_s}{\partial c_s} \left(\prod_{k=2}^s\frac{\partial c_s}{\partial c_{s-1}} \frac{\partial c_1} {\partial W} \right)
+\end{align}
+Now we want to show that as $s \rightarrow \infty$ the derivative $\rightarrow 0$. Since the network weights $W$ are the concatenated $c$ and $x$ vectors, we can rewrite $c_s$:
+\begin{align}
+    c_s = tanh(W_c \cdot c_{s-1} + W_x \cdot x_s)
+\end{align}
+We find the derivative of this:
+\begin{align}
+    \frac{\partial c_s}{\partial c_{s-1}} = tanh'(W_c \cdot c_{s-1} + W_x \cdot x_s) \cdot W_c
+\end{align}
+Plugging these expressions in, we get the following expression:
+\begin{align}
+    \frac{\partial E_s}{\partial W} &= \frac{\partial E_s}{\partial h_s}\frac{\partial h_s}{\partial c_s} \left(\prod_{k=2}^s tanh'(W_c \cdot c_{s-1} + W_x \cdot x_s) \cdot W_c \right)
+\end{align}
+Since the derivative of the tangent is always strictly $<1$, the expression will tend towards zero as $s \rightarrow \infty$. However, if the weights $W_c$ are significantly large, they may cause the expression to instead explode towards $\infty$ as $s \rightarrow \infty$.\\
+\begin{figure}[ht]
+    \centering
+        \includegraphics[width=0.75\textwidth]{latex/imgs/tanh_deriv.png}
+    \caption{Showing the derivative of the tanh function. Image Source:\cite{grad}}
+\end{figure}
+If we take a look back at the formula used to update the weights, we can easily see the problem:
+\begin{align}
+    W &\leftarrow W - \alpha \frac{\partial E}{\partial W}
+\end{align}
+Since $\frac{\partial E}{\partial W} = \sum_{s=0}{T} \frac{\partial E_t}{\partial W} \rightarrow 0$ as $s \rightarrow \infty$, we can see that the updates will be incredibly small, to the point where they are basically nonexsistent.
