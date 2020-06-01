@@ -35,4 +35,4 @@ The basic structure of an RNN is quite simple, consisting of a single linear lay
 \subsubsection{The exploding/vanishing gradient problem}
 One major issue with using basic RNNs is the fact that they suffer quite heavily from the exploding/vanishing gradient problem. This problem arises from the fact that very large gradients and gradients very close to zero tend to approach infinity and zero respectively, as they are multiplied together during backpropagation.
 
-To show this, let's consider an RNN network, which for simplicitys sake has a single variable
+To show this, let's consider the following example. The gradient when using the backprop through time algorithm looks as follows:
