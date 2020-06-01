@@ -4,6 +4,10 @@ __pycache__/
 *$py.class
 *.fasta
 *.pth
+*.bbl
+*.brf
+*.brg
+*.blg
 
 # C extensions
 *.so
