@@ -1,0 +1,45 @@
+Snak mere om hvorfor det her er et interessant problem i intro, vend evt tilbage til det senere
+
+Ikke nødvendigt at snakke om forskellige versioner af backprop
+
+Backprop foregår basically på samme måde i backprop through time som i den normale
+
+Beskriv datasæt
+
+Lav nogle eksperimenter med hyperparametre for at nærme unireps
+
+Første del af resultat bliver at reproducere unirep
+
+skriv at vi ikke har ligeså god hardware, og derfor ikke kan nå helt op på de samme resultater
+
+Systematisk undersøgelse er vigtigere end gode resultater
+
+Mængden af dimensioner i modellen kan godt være et godt sted at eksperimentere
+
+Historie skal måske handle mest om lstm, med cnn som sidenote
+
+Kan man få decent performance ud af mindre modeller? Skriv måske som spørgsmål i rapport
+
+Konklusion: cnn giver ikke ligeså god performance, men kan nok godt få bedre resultater med mere tid, og måske
+
+Snak lidt i introduktion om hvad proteiner er og hvorfor det er vigtigt at kende deres strukturer
+
+Vi slipper for at lave et abstract
+
+Sæt os og planlæg resultat afsnittet, og overskrifter generelt
+
+Læg plan for hvilke eksperimenter vi skal bruge til i rapporten, lad være med at køre
+
+Skriv helt klart om ting vi kunne have gjort ud over det vi
+
+Skriv måske lidt om hvad der sker i det der "knæk" i loss, men vi kan nok ikke komme med et rigtigt "svar"
+
+Eksperiment med min_loss model og sidste model er godt at skrive om
+
+Loss fluktuerer rigtig meget
+
+Regularisere på cnn for at fikse overfitting og
+
+CNN overfitter mere end lstm, selvom der er færre parametre
+
+Smid nogle læringskurver i rapport
