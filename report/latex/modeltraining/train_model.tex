@@ -1,0 +1,8 @@
+The goal of training a neural network, is for it to be as effective as possible. Meaning that the predcitions it's making, is as close as the desired output. When training a model, various of different operations and methods are being introduced. \\
+
+\noindent
+The training of a neural network, is an iterative process. When a model is being trained, it is fed with some input $x$ tranforming it into an output $\hat{y}$, which is an estimation prediction of the desired value $y$. This prediction is then together with the desired input $y$, fed into an error function; which outputs some cost. An error- or cost function is, a way to estimate the differences between the estimated prediction $\hat{y}$ and $y$, by computing some cost. This cost explains how much $y$ and $\hat{y}$ differentiate from each other.\\
+
+\noindent
+Using this cost function, in combination with backpropagation and some optimizer (which we will explain later in the report). It is possible to update, the model's parameters, in a way that minimizes the cost function's output. When the cost value becomes smaller, The amount that $\hat{y}$ deviates from $y$, also becomes smaller. This means that our model, becomes better at predicting a good estimation $\hat{y}$ compared to $y$.
+
