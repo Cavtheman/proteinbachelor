@@ -61,7 +61,7 @@ Plugging these expressions in, we get the following expression:
 \begin{align}
     \frac{\partial E_s}{\partial W} &= \frac{\partial E_s}{\partial h_s}\frac{\partial h_s}{\partial c_s} \left(\prod_{t=2}^s tanh'(W_c \cdot c_{t-1} + W_x \cdot x_t) \cdot W_c \right) \frac{\partial c_1}{\partial W}
 \end{align}
-Since the derivative of the tangent is always strictly $<1$ as can bee seen in ~\ref{fig:tanh_deriv}, the expression will tend towards zero as $s \rightarrow \infty$. However, if the weights $W_c$ are significantly large, they may cause the expression to instead explode towards $\infty$ as $s \rightarrow \infty$.\\
+Since the derivative of the tangent is always strictly $<1$ as can be seen in Figure ~\ref{fig:tanh_deriv}, the expression will tend towards zero as $s \rightarrow \infty$. However, if the weights $W_c$ are significantly large, they may cause the expression to instead explode towards $\infty$ as $s \rightarrow \infty$.\\
 \begin{figure}[h]
     \centering
         \includegraphics[width=0.75\textwidth]{latex/imgs/tanh_deriv.png}
@@ -74,7 +74,7 @@ If we take a look back at the formula used to update the weights, we can easily 
 \end{align}
 Since $\frac{\partial E}{\partial W} = \sum_{t=0}^{T} \frac{\partial E_t}{\partial W} \rightarrow 0$ as $T \rightarrow \infty$, we can see that the updates will eventually be incredibly small, to the point where they are basically nonexsistent.
 
-\subsubsection{LSTMs as a solution}
+\subsubsection{An LSTMs structure}
 First we will go over how the LSTM architecture works, then we will go over how this solves the vanishing/exploding gradient problem.\\
 
 \noindent
@@ -95,11 +95,13 @@ Another major difference is the fact that there are four separate linear layers 
 \noindent
 The next two layers also interact with the cell state, but are combined via pointwise multiplication to act as a single gate. The first layer has a sigmoid activation function, while the second has a $tanh$ activation function. The output of this pointwise multiplication will then be combined with the cell state using pointwise addition. This gate acts as an input gate, in the sense that it controls which parts of the cell state get updated as per the new information. With weights $W_c$ for the $tanh$ layer and $W_i$ for the sigmoid layer, the input gate $i_t$ at time step $t$ is defined as follows:
 \begin{align}
-    i_t &= tanh(W_c \cdot [x_t,h_{t-1}]) \otimes \sigma (W_i \cdot [x_t,h_{t-1}])
+    \tilde{c}_t &= tanh(W_c \cdot [x_t,h_{t-1}]) \\
+    \tilde{i}_t &= \sigma (W_i \cdot [x_t,h_{t-1}]) \\
+    i_t &= \tilde{c}_t \otimes \tilde{i}_t
 \end{align}
 
 \noindent
-The final layer also has a sigmoid activation, but is used quite differently. A copy of the cell state will be passed through a tanh activation, and multiplied pointwise with the output of this layer. The output of this is then the new $h_t$ that will be passed forward. This gate acts as an output gate, because it is what controls which parts of the information in the cell state will be passed along as input for the next time step.
+The final layer also has a sigmoid activation, but is used quite differently. A copy of the cell state will be passed through a tanh activation, and multiplied pointwise with the output of this layer. The output of this is then the new $h_t$ that will both be passed forward and used as the output. This gate acts as an output gate, because it is what controls which parts of the information in the cell state will be passed along as input for the next time step.
 With weights $W_o$, the output gate $o_t$ is defined as follows at time step $t$:
 \begin{align}
     o_t &= \sigma(W_o \cdot [x_t,h_{t-1}])
@@ -109,3 +111,32 @@ The result of all these operations mean that there are two output vectors which 
     c_t &= c_{t-1} \otimes f_t \oplus i_t \\
     h_t &= \sigma (o_t \otimes tanh (c_t))
 \end{align}
+
+\subsubsection{Why an LSTM structure solves the vanishing/exploding gradients}
+In an LSTM, the gradient of the error at each time step is calculated in almost exactly the same way. But the fact that the cell state, which corresponds to the basic RNNs output, is calculated differently means that it does not suffer from the problem to the same degree. We showed before that the following expression will tend towards zero:
+\begin{align}
+    \frac{\partial E_s}{\partial W} &= \frac{\partial E_s}{\partial h_s}\frac{\partial h_s}{\partial c_s} \left(\prod_{t=2}^s\frac{\partial c_t}{\partial c_{t-1}} \right) \frac{\partial c_1} {\partial W} 
+\end{align}
+However, in an LSTM, $c_t$ is calculated differently, so let's look at how this affects the overall expression:
+\begin{align}
+    c_t &= c_{t-1} \otimes f_t \oplus i_t \\
+    &=  c_{t-1} \otimes f_t \oplus \tilde{c}_t \otimes \tilde{i}_t
+    &= c_{t-1} \otimes \sigma (W_f \cdot [x_t,h_{t-1}]) \oplus tanh(W_c \cdot [x_t,h_{t-1}]) \otimes \sigma (W_i \cdot [x_t,h_{t-1}])
+\end{align}
+Because $c_t$ is so different, the expression for the derivative changes:
+\begin{align}
+    \frac{\partial c_t}{\partial c_{t-1}} &= \frac{\partial}{\partial c_{t-1}} c_t \\
+    &= \frac{\partial}{\partial c_{t-1}} \left[c_{t-1} \otimes f_t \right] + \frac{\partial}{\partial c_{t-1}} \left[\tilde{c}_t \otimes \tilde{i}_t \right] \\
+    &= \frac{\partial f_t}{\partial c_{t-1}} \cdot c_{t-1} + \frac{\partial c_{t-1}}{\partial c_{t-1}} \cdot f_t + \frac{\partial \tilde{i}_t}{\partial c_{t-1}} \cdot \tilde{c_t} + \frac{\partial \tilde{c_t}}{\partial c_{t-1}} \cdot \tilde{i}_t \\
+\end{align}
+This can be written out as follows:
+\begin{align}
+    \frac{\partial c_t}{\partial c_{t-1}} &= \sigma'(W_f \cdot [x_t,h_{t-1}]) \cdot W_f \cdot o_{t-1} \otimes tanh'(c_{t-1}) \cdot c_{t-1} \\
+    &+ f_t \\
+    &+ \sigma'(W_i \cdot [x_t,h_{t-1}]) \cdot W_i \cdot o_{t-1} \otimes tanh'(c_{t-1}) \cdot \tilde{c}_{t-1} \\
+    &+ \sigma'(W_c \cdot [x_t,h_{t-1}]) \cdot W_c \cdot o_{t-1} \otimes tanh'(c_{t-1}) \cdot \tilde{i}_{t-1}
+\end{align}
+For brevity, we define each addend here as one variable:
+%\begin{align}
+%    
+%\end{align}
