@@ -47,7 +47,7 @@ This gradient updates the model weights according to the following formula, with
 If we use basic gradient descent, then the gradient of the error at an arbitrary step $s$ is given as follows:
 \begin{align}
     \frac{\partial E_s}{\partial W} &= \frac{\partial E_s}{\partial h_s}\frac{\partial h_s}{\partial c_s} \cdots \frac{\partial c_2}{\partial c_1} \frac{\partial c_1}{\partial W} \\
-    &= \frac{\partial E_s}{\partial h_s}\frac{\partial h_s}{\partial c_s} \left(\prod_{t=2}^s\frac{\partial c_t}{\partial c_{t-1}} \frac{\partial c_1} {\partial W} \right)
+    &= \frac{\partial E_s}{\partial h_s}\frac{\partial h_s}{\partial c_s} \left(\prod_{t=2}^s\frac{\partial c_t}{\partial c_{t-1}} \right) \frac{\partial c_1} {\partial W} 
 \end{align}
 Now we want to show that as $s \rightarrow \infty$ the derivative $\rightarrow 0$. Since the network weights $W$ are the concatenated $c$ and $x$ vectors, we can rewrite $c_t$:
 \begin{align}
@@ -61,11 +61,12 @@ Plugging these expressions in, we get the following expression:
 \begin{align}
     \frac{\partial E_s}{\partial W} &= \frac{\partial E_s}{\partial h_s}\frac{\partial h_s}{\partial c_s} \left(\prod_{t=2}^s tanh'(W_c \cdot c_{t-1} + W_x \cdot x_t) \cdot W_c \right) \frac{\partial c_1}{\partial W}
 \end{align}
-Since the derivative of the tangent is always strictly $<1$, the expression will tend towards zero as $s \rightarrow \infty$. However, if the weights $W_c$ are significantly large, they may cause the expression to instead explode towards $\infty$ as $s \rightarrow \infty$.\\
+Since the derivative of the tangent is always strictly $<1$ as can bee seen in ~\ref{fig:tanh_deriv}, the expression will tend towards zero as $s \rightarrow \infty$. However, if the weights $W_c$ are significantly large, they may cause the expression to instead explode towards $\infty$ as $s \rightarrow \infty$.\\
 \begin{figure}[h]
     \centering
         \includegraphics[width=0.75\textwidth]{latex/imgs/tanh_deriv.png}
     \caption{Showing the derivative of the tanh function. Image Source:\cite{grad}}
+    \label{fig:tanh_deriv}
 \end{figure}
 If we take a look back at the formula used to update the weights, we can easily see the problem:
 \begin{align}
