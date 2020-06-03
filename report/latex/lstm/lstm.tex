@@ -131,12 +131,36 @@ Because $c_t$ is so different, the expression for the derivative changes:
 \end{align}
 This can be written out as follows:
 \begin{align}
-    \frac{\partial c_t}{\partial c_{t-1}} &= \sigma'(W_f \cdot [x_t,h_{t-1}]) \cdot W_f \cdot o_{t-1} \otimes tanh'(c_{t-1}) \cdot c_{t-1} \\
+    \frac{\partial c_t}{\partial c_{t-1}} =& \sigma'(W_f \cdot [x_t,h_{t-1}]) \cdot W_f \cdot o_{t-1} \otimes tanh'(c_{t-1}) \cdot c_{t-1} \\
     &+ f_t \\
     &+ \sigma'(W_i \cdot [x_t,h_{t-1}]) \cdot W_i \cdot o_{t-1} \otimes tanh'(c_{t-1}) \cdot \tilde{c}_{t-1} \\
     &+ \sigma'(W_c \cdot [x_t,h_{t-1}]) \cdot W_c \cdot o_{t-1} \otimes tanh'(c_{t-1}) \cdot \tilde{i}_{t-1}
 \end{align}
 For brevity, we define each addend here as one variable:
-%\begin{align}
-%    
-%\end{align}
+\begin{align}
+    W_t &= \sigma'(W_f \cdot [x_t,h_{t-1}]) \cdot W_f \cdot o_{t-1} \otimes tanh'(c_{t-1}) \cdot c_{t-1} \\
+    X_t &= f_t \\
+    Y_t &= \sigma'(W_i \cdot [x_t,h_{t-1}]) \cdot W_i \cdot o_{t-1} \otimes tanh'(c_{t-1}) \cdot \tilde{c}_{t-1} \\
+    Z_t &= \sigma'(W_c \cdot [x_t,h_{t-1}]) \cdot W_c \cdot o_{t-1} \otimes tanh'(c_{t-1}) \cdot \tilde{i}_{t-1}
+\end{align}
+Thus, the gradient can now be written as follows:
+\begin{align}
+    \frac{\partial c_t}{\partial c_{t-1}} = W_t + X_t + Y_t + Z_t
+\end{align}
+The fact that we now have a derivative consisting of several additions of number that are $<1$ means that the LSTM can balance these out. Because of this, the addition in and of itself may result in the sum being $\geq 1$. The full expression can be written as follows:
+\begin{align}
+    \frac{\partial E_s}{\partial W} &= \frac{\partial E_s}{\partial h_s}\frac{\partial h_s}{\partial c_s} \left(\prod_{t=2}^s \left[W_t + X_t + Y_t + Z_t \right] \right) \frac{\partial c_1} {\partial W} 
+\end{align}
+And interesting note here is the fact that the forget gate comes through all of this. This means that the LSTM can pick and choose information to be forgotten and information to be remembered at any given time step. This property is significant in preventing vanishing gradients. Take a look at this expression once again, and assume that for this $s < T$, we have:
+\begin{align}
+    \sum_{t=1}^s \frac{\partial E_t}{\partial W} \rightarrow 0
+\end{align}
+If we don't want the gradient to vanish, we can then change the forget gate at $s+1$ so the following is true:
+\begin{align}
+    \frac{\partial E_{s+1}}{\partial W} \not \rightarrow 0
+\end{align}
+Because of this, we can say the following:
+\begin{align}
+    \sum_{t=1}^{k+1} \frac{\partial E_t}{\partial W} \not \rightarrow 0
+\end{align}
+This is exactly what we wanted the LSTM to do. Now the gradients no longer vanish.
