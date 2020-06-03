@@ -71,4 +71,15 @@ If we take a look back at the formula used to update the weights, we can easily 
 \begin{align}
     W &\leftarrow W - \alpha \frac{\partial E}{\partial W}
 \end{align}
-Since $\frac{\partial E}{\partial W} = \sum_{s=0}{T} \frac{\partial E_t}{\partial W} \rightarrow 0$ as $s \rightarrow \infty$, we can see that the updates will be incredibly small, to the point where they are basically nonexsistent.
+Since $\frac{\partial E}{\partial W} = \sum_{s=0}{T} \frac{\partial E_t}{\partial W} \rightarrow 0$ as $s \rightarrow \infty$, we can see that the updates will eventually be incredibly small, to the point where they are basically nonexsistent.
+
+\subsubsection{LSTMs as a solution}
+First we will go over how the LSTM architecture works, then we will go over how this solves the vanishing/exploding gradient problem.\\
+
+\noindent
+An LSTM takes the same inputs as a general RNN. The output of the previous cell, and the input at the currrent timestep. These will be called $c$ and $x$ again.\\
+\begin{figure}[ht]
+    \centering
+        \includegraphics[width=0.75\textwidth]{latex/imgs/lstm.png}
+    \caption{Visualisation of the LSTM architecture. Image Source:\cite{grad}}
+\end{figure}
