@@ -18,7 +18,7 @@ The second is in a "many to one" fashion in which the input is a sequence, and t
 
 The last two both output in a "many to many" fashion, but how they do it is significantly different. The first case outputs a completely new sequence that is not neccesarily the same length as the input sequence, after having seen the entire input. This is useful for networks trying to represent the data in a different way. The last case is the one that will be described further down in this report. This case outputs an element of a new sequence for each element in the input. This means that for each output element, the RNN only knows about previous elements. This makes it the perfect candidate for next token prediction.
 
-\begin{figure}[ht]
+\begin{figure}[!ht]
     \centering
         \includegraphics[width=0.5\textwidth]{latex/imgs/rnn_types.png}
     \caption{A visual representation of the output types described. The one-to-one is how fully connected networks work, for comparison. Image Source:\cite{rnn}}
@@ -26,7 +26,7 @@ The last two both output in a "many to many" fashion, but how they do it is sign
 
 The basic structure of an RNN is quite simple, consisting of a single linear layer and activation function, which is usually the $tanh$ function. The network is interesting in that each "cell" passes along a hidden state as input to the next cell. This means that each cell takes both the current input element and the previous cell's output and concatenates them and uses this as input to the linear layer.
 
-\begin{figure}[ht]
+\begin{figure}[!ht]
     \centering
         \includegraphics[width=0.5\textwidth]{latex/imgs/rnn.png}
     \caption{A visual representation of the inner structure of an RNN. Image Source:\cite{rnn}}
@@ -62,7 +62,7 @@ Plugging these expressions in, we get the following expression:
     \frac{\partial E_s}{\partial W} &= \frac{\partial E_s}{\partial h_s}\frac{\partial h_s}{\partial c_s} \left(\prod_{t=2}^s tanh'(W_c \cdot c_{t-1} + W_x \cdot x_t) \cdot W_c \right) \frac{\partial c_1}{\partial W}
 \end{align}
 Since the derivative of the tangent is always strictly $<1$, the expression will tend towards zero as $s \rightarrow \infty$. However, if the weights $W_c$ are significantly large, they may cause the expression to instead explode towards $\infty$ as $s \rightarrow \infty$.\\
-\begin{figure}[ht]
+\begin{figure}[!ht]
     \centering
         \includegraphics[width=0.75\textwidth]{latex/imgs/tanh_deriv.png}
     \caption{Showing the derivative of the tanh function. Image Source:\cite{grad}}
@@ -78,7 +78,7 @@ First we will go over how the LSTM architecture works, then we will go over how 
 
 \noindent
 An LSTM actually has an extra input and output vector compared to the base RNN architecture. Much like the base RNN, at time step $t$ it takes an input vector $x_t$ and concatenates it with a hidden vector from a previous output, which we wil refer to as $h_{t-1}$. We will refer to the concatenated vector as $[x_t,h_{t-1}]$. The difference is that it also takes in a cell state, which we will refer to as $c_{t-1}$ since it is also from a previous output. The idea behind this cell state is for it to act as a "highway" for information which can only be changed with linear operations. This means that the cell state is very helpful for remembering information that was learned a long time ago.\\
-\begin{figure}[ht]
+\begin{figure}[!ht]
     \centering
         \includegraphics[width=0.75\textwidth]{latex/imgs/lstm.png}
     \caption{Visualisation of the LSTM architecture. Image Source:\cite{lstm}}
