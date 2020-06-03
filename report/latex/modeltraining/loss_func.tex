@@ -1,37 +1,37 @@
-As mentioned; a loss function, describes the differents between $\hat{y}$ and $y$. In our project we use Cross Entropy loss function. To formally understand how this function works, we first have to understand how the 'Entropy' part works. \\
+As mentioned; a loss function describes the differents between $\hat{y}$ and $y$. In our project, we use the Cross-Entropy loss function. To formally understand how this function works, we first have to understand how the 'Entropy' part works. \\
 
 \noindent
-Given a probability distribution of a set of events, where the probabilities sums to 1; the Entropy describes the average information value this distribution has, given the probability of the events happening. This information value is described in bits. Finding the information value for a single occurrence is defined as: $-log_2(p(x))$, where $p(x)$ is the probability of x occurring.\\
+Given a probability distribution of a set of events, where the probabilities sum to 1; the Entropy describes the average information value this distribution has, given the probability of the events happening. This information value is described in bits. Finding the information value for a single occurrence is defined as: $-log_2(p(x))$, where $p(x)$ is the probability of x occurring.\\
 
 \noindent
-An example Helps formally explaining this: If one was told, tomorrow there will be 75\% chance of rain and 25\% of no rain. If that person wakes up the next day, finding out it's not raining, this value this would have a 2 bit information value, because $-log_2(0.25) = 2$ bits. If he woke up the next day seeing it was raining, the value of that information is only 0.41 bits, because $-log_2(0.75) = 0.41$ bits. Thus, the higher the probability of the occurence, the lower the information bit-value will become. \\
+An example Helps formally explaining this: If one was told, tomorrow there will be a 75\% chance of rain and 25\% of no rain. If that person wakes up the next day, finding out it's not raining, this value this would have a 2-bit information value, because $-log_2(0.25) = 2$ bits. If he woke up the next day seeing it was raining, the value of that information is only 0.41 bits because $-log_2(0.75) = 0.41$ bits. Thus, the higher the probability of the occurrence, the lower the information bit-value will become. \\
 
 \noindent
 The Entropy function $h$ simply finds the average of information, given some occurences $X=\{x_0,x_1,...,x_n\}$ where $\sum^n_{i} p(x_i) = 1$:
 
 \begin{align}
-	h(X) = \sum^n_{i=1} p(x_i)(-log_2(p(x_i)))
+    h(X) = \sum^n_{i=1} p(x_i)(-log_2(p(x_i)))
 \end{align}
 
 \noindent
 Using Entropy function from equation(12) on the weather example, it'll yield $(0.75 * 0.41) + (0.25 * 2) = 0.81$.\\
 
 \noindent
-The Cross entropy function $H$ measures the entropy between 2 probability distributions ($P$ and $Q$) over the same set of events. We denote an event from the $P$ distribution as $x_i^{(P)}$ and an event from Q as $x_i^{(Q)}$. Thus, Cross Entropy function H will look like:
+The Cross entropy function $H$ measures the entropy between 2 probability distributions ($P$ and $Q$) over the same set of events. We denote an event from the $P$ distribution as $x_i^{(P)}$ and an event from Q as $x_i^{(Q)}$. Thus, Cross-Entropy function H will look like:
 
 \begin{align}
-	H(P,Q) = \frac{1}{n} \sum^n_{i=1} p(x_i^{(P)})(-log_2(p(x_i^{(Q)})))
+    H(P,Q) = \frac{1}{n} \sum^n_{i=1} p(x_i^{(P)})(-log_2(p(x_i^{(Q)})))
 \end{align}
 
 \noindent
-So in our case we we wan to predict the right amine acids. Say that we are only looking at sequences with 3 different amino acids \{A,B,C\}, and we want to predict the amino acid 'A'. We define the following $y$ and an arbitrary $\hat{y}$.
+So in our case we wan to predict the right amine acids. Say that we are only looking at sequences with 3 different amino acids \{A, B, C\}, and we want to predict the amino acid 'A'. We define the following $y$ and an arbitrary $\hat{y}$.
 
 \begin{table}[h]
 \centering
 \begin{tabular}{|l|l|l|l|}
 \hline
- 		  & $p(A)$ & $p(B)$ & $p(C)$ \\ \hline
-$y$ 	  & $1.0$  & $0.0$  & $0.0 $ \\ \hline
+           & $p(A)$ & $p(C)$ & $p(D)$ \\ \hline
+$y$       & $1.0$  & $0.0$  & $0.0 $ \\ \hline
 $\hat{y}$ & $0.6$  & $0.10$ & $0.30$ \\ \hline
 \end{tabular}
 \end{table}
@@ -39,15 +39,15 @@ $\hat{y}$ & $0.6$  & $0.10$ & $0.30$ \\ \hline
 Using $y$- and $\hat{y}$ distribution in the Cross Entropy model H. The function yields the following cost:
 
 \begin{align}
-	H(y,\hat{y}) = 0.736
+    H(y,\hat{y}) = 0.736
 \end{align}
 
 \begin{table}[h]
 \centering
 \begin{tabular}{|l|l|l|l|}
 \hline
- 		  & $p(A)$ & $p(B)$ & $p(C)$ \\ \hline
-$y$ 	  & $1.0$  & $0.0$  & $0.0 $ \\ \hline
+           & $p(A)$ & $p(C)$ & $p(D)$ \\ \hline
+$y$       & $1.0$  & $0.0$  & $0.0 $ \\ \hline
 $\hat{y}$ & $0.4$  & $0.30$ & $0.30$ \\ \hline
 \end{tabular}
 \caption{example of a less confident model}\label{Baseline:before}
@@ -60,8 +60,8 @@ Using this example of a less confident model, will yield the following cost: $H(
 \centering
 \begin{tabular}{|l|l|l|l|}
 \hline
- 		  & $p(A)$ & $p(B)$ & $p(C)$ \\ \hline
-$y$ 	  & $1.0$  & $0.0$  & $0.0 $ \\ \hline
+           & $p(A)$ & $p(C)$ & $p(D)$ \\ \hline
+$y$       & $1.0$  & $0.0$  & $0.0 $ \\ \hline
 $\hat{y}$ & $0.9$  & $0.08$ & $0.02$ \\ \hline
 \end{tabular}
 \caption{example of a more confident model}\label{Baseline:before}
@@ -70,3 +70,5 @@ $\hat{y}$ & $0.9$  & $0.08$ & $0.02$ \\ \hline
 \noindent
 Using this example of a less confident model, will yield the following cost: $H(y,\hat{y}) = 0.152$\\
 
+\noindent
+Now it's clear to see that the greater the difference of $\hat{y}$ and $y$ is, the greater the loss.
