@@ -105,6 +105,6 @@ With weights $W_o$, the output gate $o_t$ is defined as follows at time step $t$
 \end{align}
 The result of all these operations mean that there are two output vectors which are defined as follows:
 \begin{align}
-    c_t &= c_{t-1} \otimes f_t \oplus i_t
-    h_t &= \sigma \left(o_t \otimes tanh (c_t)
+    c_t &= c_{t-1} \otimes f_t \oplus i_t \\
+    h_t &= \sigma (o_t \otimes tanh (c_t))
 \end{align}
