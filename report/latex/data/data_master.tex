@@ -12,7 +12,13 @@ UniRep removed proteins containing amino acid symbols (X, B, Z, J), and sequence
 With the sample reduction, we ended up having roughly 78,000 protein sequences in our training set.\\
 
 \noindent
-The primary structure consists of amino acids. Each amino acid is represented as a char \\ $\in \{A, C, D, E, F, G, H, I, K, L, M, N, O, P, Q, R, S, T, U, V, W, Y\}$. meaning that each protein from the dataset is represented as a sequence of chars, with arbitrary length. Since the length of each sequence varies, we've added a padding element (padding element is '-'); padding this element on all sequences, resulting in all sequences has a 500 feature-length. \\
+The primary structure consists of amino acids. Each amino acid is represented as a char \\ $\in \{A, C, D, E, F, G, H, I, K, L, M, N, O, P, Q, R, S, T, U, V, W, Y\}$. meaning that each protein from the dataset is represented as a sequence of chars, with arbitrary length. Since the length of each sequence varies, we've added a padding element (padding element is '-'); padding this element on all sequences, resulting in all sequences has a 500 feature-length. The following figure, shows the frequency of each amino acid in the whole dataset\\
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[scale=0.4]{latex/imgs/aminoFreq.png}
+  \caption{Histogram of amino acid frequency}\label{Baseline:before}
+\end{figure}
 
 \noindent
 Our models use embeddings, which is a method of converting a list of one-hot indices, to corresponding word embeddings. In our case, this meant that we had to transform our sequences into one-hot indices. A one-hot encoding is a way to represent the data, through a vector representation only containing \{0,1\}. Say each protein sequence only contain three amino acids (A, C, D), these amino acids will have the following one-hot encodings.
@@ -35,6 +41,7 @@ D= \begin{bmatrix}
 \end{bmatrix}
 $$
 
+\noindent
 If we were looking at four amino acids (A, C, D, E), the one-hot encoding would look like:
 
 $$
@@ -64,6 +71,7 @@ E= \begin{bmatrix}
 \end{bmatrix}
 $$
 
+\noindent
 We are having working with 22 amino acids and a pad-value each amino acid will be represented $1$x$23$ onehot encoding. The onehot index describes at which index the $1$ is placed. thus if we define the onehot index of any input as $h$, we get:
 
 \begin{align}
@@ -73,6 +81,7 @@ h(D) = 2 \\
 h(E) = 3 \\
 \end{align}
 
+\noindent
 This means our data gets transformed to one-hot indices before we can use it in our models.
 
 \subsection{Labeled data}

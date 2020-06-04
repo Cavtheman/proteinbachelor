@@ -1,6 +1,9 @@
 The optimizer we are using in our models is the Adam (adaptive moment estimation)  optimizer. The Adam optimizer is based on stochastic gradient descent\cite{adam}, therefor Adam has also a random probability of picking a gradient in the sample data. As well as SGD, Adam is well suited for objective functions, which require some scalar parameter maximization or minimization. \\
 
 \noindent
+Adam also uses something called gradient descent with momentum. Momentum is a method, which computes an exponentially weighted average of previously calculated gradients, and uses this gradient in the gradient descent step.
+
+\noindent
 when talking about optimizers in neural networks, "learning rate" is a keyword in this context. The learning rate is a parameter, which defines the rate of change given a gradient. This means that the greater the learning rate is, the greater the change of some specific parameter will become; in the context of finding the local minima.\\
 
 \noindent
