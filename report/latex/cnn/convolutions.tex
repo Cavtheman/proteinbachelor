@@ -14,15 +14,15 @@ $$ g = \begin{bmatrix}
 $$
 
 \noindent
-This means, that if some were to use, the filter kernel $g$, on some input image. The filter $g$ would simply highlight the edges on some input; Rotating the filter multiple times, whould result in finding the left vertical edges presented in the image. Due to bounderies; using a filter greater than $1$x$1$ will yield a smaller output matrix. It is possible to introduce padding to avoid dimension loss.
+This means, that if some were to use, the filter kernel $g$, on some input image. The filter $g$ would simply highlight the edges on some input; Rotating the filter multiple times, whould result in finding the left vertical edges presented in the image. Due to bounderies; using a filter greater than $1$x$1$ will yield a smaller output matrix. It is possible to introduce padding to avoid dimension loss.\\
 
 \noindent
 Lastly, the convolutional layers have something called stride. The stride value defines how the filter travels over the input. Meaning how many steps it takes before calculating a new dot-product. In the example given above, we have a stride size of $1$x$1$. This means, that every single region where a $3$x$3$ can fit in the input, the dot-product will be calculated. If we were to change the stride to size $2$x$1$, the output would become smaller, since we take bigger steps, each time we are calculating the dot-product.
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[scale=0.4]{latex/imgs/conv1.png}
-  \caption{Shows how a 3x3 mean filter acts on a 5x5 pixel feature map, with stride 1x1}\label{Baseline:before}
+  \includegraphics[scale=0.4]{latex/imgs/conv1_highVert_stride.png}
+  \caption{Shows how a 3x3 left vertical edge filter acts on a 5x5 pixel feature map, with stride 1x1}\label{Baseline:before}
 \end{figure}
 
 \noindent
@@ -30,8 +30,8 @@ Given that we are looking at sequences, which are not two dimensional, but one d
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[scale=0.4]{latex/imgs/conv2.png}
-  \caption{Shows how a 1x3 mean filter acts on a 1x9 feature map, with stride 1}\label{Baseline:before}
+  \includegraphics[scale=0.4]{latex/imgs/conv2_vert_stride.png}
+  \caption{Shows how a 1x3 left vertical edge filter acts on a 1x9 feature map, with stride 1}\label{Baseline:before}
 \end{figure}
 
 \noindent
