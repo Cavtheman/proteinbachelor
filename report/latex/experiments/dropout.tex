@@ -1,4 +1,21 @@
-Min training loss was 2.51
-2-layer model 0.5 dropout final loss ~2.69
-2-layer model 0.5 dropout minloss loss ~ 2.61
-TODO: Spearmanr
+Because LSTMs are structured quite differently than many other networks, there are several different ways to apply dropout to them.\cite{dropout} Pytorch has only implemented a simple version though, that requires stacked a network with more than one layer. With this implementation, the dropout happens on the output from the first layer that goes through to the second. For this experiment we trained two models with the following identical hyperparameters:
+\begin{itemize}
+	\item Layers: $2$
+	\item Character embedding size: 30
+	\item Starting learning rate: $8e-4$
+	\item Learning rate schedule: Multiply by $0.2$ every 5 epochs
+	\item Hidden layer size: $512$
+	\item Training time: 7 hours
+\end{itemize}
+The only difference was that one of the networks had a dropout value of $0.5$ during training, corresponding to $50\%$ of the features.\\
+
+\noindent
+This test was laid out because in conventional fully connected networks we know that dropping out part of the features can significantly increase the robustness of the network. The reason that dropping information is that some of the easier features that help with classification can be dropped out, helping it learn from some features that may be less immediately informative. We wanted to test how much of an effect this has on an LSTM.
+
+% DO NOT DELETE
+%Min training loss was 2.51
+%2-layer model 0.5 dropout final loss ~2.69
+%2-layer model 0.5 dropout minloss loss ~ 2.61
+%
+%2-layer model 0.5 dropout final spearman:  0.518
+%2-layer model 0.5 dropout minloss spearman: 0.539

@@ -1,0 +1,12 @@
+The learning rate of any kind of neural network is an incredibly important hyperparameter. For this experiments we have trained two models with the following identical hyperparameters:
+\begin{itemize}
+	\item Layers: $1$
+	\item Character embedding size: 30
+	\item Starting learning rate: $8e-4$
+	\item Hidden layer size: $512$
+	\item Training time: 7 hours
+\end{itemize}
+The only difference between the networks was that one of them had a learning rate schedule. This schedule meant that every $5$ epochs, the learning rate would be multiplied by $0.2$. \\
+
+\noindent
+We decided to lay out this test because we noticed that when training, the training loss would vary significantly as training went on, and that this variance increased significantly when training for long periods of time. We thought that reducing the learning rate could potentially alleviate this problem slightly. A learning rate schedule is a good way to do this, because simply lowering the learning rate significantly at the beginning would mean that the model would take a very long time to reach the point where it becomes helpful.
