@@ -1,10 +1,11 @@
-Because LSTMs are structured quite differently than many other networks, there are several different ways to apply dropout to them.\cite{dropout} Pytorch has only implemented a simple version though, that requires stacked a network with more than one layer. With this implementation, the dropout happens on the output from the first layer that goes through to the second. For this experiment we trained two models with the following identical parameters:
+Because LSTMs are structured quite differently than many other networks, there are several different ways to apply dropout to them.\cite{dropout} Pytorch has only implemented a simple version though, that requires stacked a network with more than one layer. With this implementation, the dropout happens on the output from the first layer that goes through to the second. For this experiment we trained two models with the following identical hyperparameters:
 \begin{itemize}
 	\item Layers: $2$
+	\item Character embedding size: 30
 	\item Starting learning rate: $8e-4$
 	\item Learning rate schedule: Multiply by $0.2$ every 5 epochs
 	\item Hidden layer size: $512$
-	\item Training time: 8 hours
+	\item Training time: 7 hours
 \end{itemize}
 The only difference was that one of the networks had a dropout value of $0.5$ during training, corresponding to $50\%$ of the features.\\
 
