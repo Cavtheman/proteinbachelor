@@ -5,13 +5,17 @@ Because LSTMs are structured quite differently than many other networks, there a
 	\item Starting learning rate: $8e-4$
 	\item Learning rate schedule: Multiply by $0.2$ every 5 epochs
 	\item Hidden layer size: $512$
-	\item Training time: 7 hours
+	\item Training time: 30 epochs
 \end{itemize}
 The only difference was that one of the networks had a dropout value of $0.5$ during training, corresponding to $50\%$ of the features.\\
 
 \noindent
-This test was laid out because in conventional fully connected networks we know that dropping out part of the features can significantly increase the robustness of the network. The reason that dropping information is that some of the easier features that help with classification can be dropped out, helping it learn from some features that may be less immediately informative. We wanted to test how much of an effect this has on an LSTM.
+This test was laid out because in conventional fully connected networks we know that dropping out part of the features can significantly increase the robustness of the network. The reason that dropping information is that some of the easier features that help with classification can be dropped out, helping it learn from some features that may be less immediately informative. We wanted to test how much of an effect this has on an LSTM.\\
 
+\noindent
+We hypothesise that adding a dropout layer will increase the robustness of the network on new data. Because of this, we expect the model with dropout to get higher accuracy on both next token prediction and a higher spearman correlation.
+
+% Interesting note: dropout performs worse on next token prediction, but better on spearman
 % DO NOT DELETE
 %Min training loss was 2.51
 %2-layer model 0.5 dropout final loss ~2.69
