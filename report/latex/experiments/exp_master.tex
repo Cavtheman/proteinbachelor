@@ -1,5 +1,5 @@
 \subsection{LSTM}  % casper
-In this section, we'll discuss some experiments that we have performed with the two different models. The aim of these experiments was to see which hyperparameters have significant effects on how well the models train. The models will primarily be evaluated based on how good their representation of the proteins are. To this end, we use the stability dataset described earlier. For each model we then train a simple linear regression model on the models representation of the proteins, against the given stability scores. How well this does is measured using spearman's rho. 
+In this section, we'll discuss some experiments that we have performed with the two different models. The aim of these experiments was to see which hyperparameters have significant effects on how well the models train. The models will primarily be evaluated based on how good their representation of the proteins are. To this end, we use the stability dataset described earlier. For each model we then train a simple linear regression model on the models representation of the proteins, against the given stability scores. How well this does is measured using spearman's rho.
 
 \subsubsection{Embeddings vs no embeddings} % Consider deleting if lacking time
 \input{latex/experiments/embedding}
@@ -14,7 +14,7 @@ In this section, we'll discuss some experiments that we have performed with the 
 \input{latex/experiments/feature_size}
 
 \subsubsection{Learning rate} % Finished
-\input{latex/experiments/dropout}
+\input{latex/experiments/lr}
 
 \subsubsection{Minimum loss model vs last model} % Finished
 \input{latex/experiments/minloss_or_last}
