@@ -14,7 +14,7 @@ class CNN(nn.Module):
         self.conv0 = nn.Conv1d(12, 8, 5, padding=2)
         self.conv1 = nn.Conv1d(8, 6, 5, padding=2)#self.conv(30, 15, 5)
         self.conv2 = nn.Conv1d(6, 4, 5, padding=2)#self.conv(15, 8, 5)
-        self.conv3 = nn.Conv1d(6, 4, 5, padding=2)#self.conv(8, 4, 5)
+        self.conv3 = nn.Conv1d(8, 6, 5, padding=2)#self.conv(8, 4, 5)
         self.conv4 = nn.Conv1d(6, 4, 5, padding=2)
 
         self.conv_mid = nn.Conv1d(4,4,5,padding=2)
@@ -23,8 +23,8 @@ class CNN(nn.Module):
         self.conv5 = nn.Conv1d(4, 8, 5, padding=2)#self.conv(4, 8, 5)
         self.conv6 = nn.Conv1d(8, 16, 5, padding=2)#self.conv(8, 14, 5)
         self.conv7 = nn.Conv1d(16, 23, 5, padding=2)#self.conv(14, 20, 5)
-        self.conv8 = nn.Conv1d(18, 23, 5, padding=2)#self.conv(20, 23, 5)
-        self.conv9 = nn.Conv1d(20, 23, 5, padding=2)#self.conv(20, 23, 5)
+        self.conv8 = nn.Conv1d(18, 21, 5, padding=2)#self.conv(20, 23, 5)
+        self.conv9 = nn.Conv1d(21, 23, 5, padding=2)#self.conv(20, 23, 5)
 
         self.conv_last1 = nn.Conv1d(23, 23, 3, padding=1)
         self.conv_last2 = nn.Conv1d(23, 23, 1, padding=0)
@@ -66,15 +66,15 @@ class CNN(nn.Module):
         #x = self.conv4(x)
         #x = self.Latent_max_pool(x)
         
-        #x = self.conv_mid(x)
+        x = self.conv_mid(x)
         
         return x
   
     def Decode(self,x):
     
         x_con = self.Up_sample_first(x)
-        x_con = F.relu(self.conv5(x_con))
-
+        x_con = F.relu(self.conv5(x))
+        
         x_con = self.Up_sample_mid(x_con)
         x_con = F.relu(self.conv6(x_con))
         
@@ -83,14 +83,17 @@ class CNN(nn.Module):
         x_con = F.relu(self.conv7(x_con))
         
         #x_con = self.Up_sample_last(x_con)
+        
         #x_con = F.relu(self.conv8(x_con))
 
+        
+        #x_con = F.relu(self.conv9(x_con))
         #x_con = F.relu(self.conv8(x_con))
         #x_con = self.Up_sample_last(x_con)
-
+        
         x_con = F.relu(self.conv_last1(x_con))
         x_con = self.conv_last2(x_con)
-
+        
         return x_con
 
     def forward(self, data):
