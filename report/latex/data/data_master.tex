@@ -84,8 +84,9 @@ h(E) = 3 \\
 \noindent
 This means our data gets transformed to one-hot indices before we can use it in our models.
 
-\subsection{Labeled data}
-Once the model had trained with the training data. We used some labeled data to test the effectiveness of our models. this data also contains protein sequences, but also a label, explaining which structure the protein has. This data made it possible to check if our models can find any separation between the different structures.
+\subsection{Protein structure labeled data}
+Once the model had trained with the training data. We used some labeled data to test the effectiveness of our models. this data also contains protein sequences with the same format as the training data. This data also contains a label, explaining which structure the protein has. This data made it possible to check if our models can find any separation between the different structures.
 
 
-\subsection{Stability data}
+\subsection{Protein Stability data}
+The stability dataset is also labeled dataset containing previously explained protein sequences. In this dataset, the label explains the stability of the protein. This label is explained with some real number value, which explains how stable some protein is. This dataset we use, to check whether or not our models have learned enough of the underlying structure of the proteins, to be used to check the stability of the protein
