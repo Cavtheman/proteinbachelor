@@ -11,18 +11,18 @@ class CNN(nn.Module):
         self.embed = nn.Embedding(23, 12)
 
         #Encode Layer
-        self.conv0 = nn.Conv1d(12, 10, 5, padding=2)
-        self.conv1 = nn.Conv1d(10, 8, 5, padding=2)#self.conv(30, 15, 5)
-        self.conv2 = nn.Conv1d(8, 6, 5, padding=2)#self.conv(15, 8, 5)
+        self.conv0 = nn.Conv1d(12, 8, 5, padding=2)
+        self.conv1 = nn.Conv1d(8, 6, 5, padding=2)#self.conv(30, 15, 5)
+        self.conv2 = nn.Conv1d(6, 4, 5, padding=2)#self.conv(15, 8, 5)
         self.conv3 = nn.Conv1d(6, 4, 5, padding=2)#self.conv(8, 4, 5)
         self.conv4 = nn.Conv1d(6, 4, 5, padding=2)
 
         self.conv_mid = nn.Conv1d(4,4,5,padding=2)
 
         #Decode Layer
-        self.conv5 = nn.Conv1d(4, 6, 5, padding=2)#self.conv(4, 8, 5)
-        self.conv6 = nn.Conv1d(6, 12, 5, padding=2)#self.conv(8, 14, 5)
-        self.conv7 = nn.Conv1d(12, 18, 5, padding=2)#self.conv(14, 20, 5)
+        self.conv5 = nn.Conv1d(4, 8, 5, padding=2)#self.conv(4, 8, 5)
+        self.conv6 = nn.Conv1d(8, 16, 5, padding=2)#self.conv(8, 14, 5)
+        self.conv7 = nn.Conv1d(16, 23, 5, padding=2)#self.conv(14, 20, 5)
         self.conv8 = nn.Conv1d(18, 23, 5, padding=2)#self.conv(20, 23, 5)
         self.conv9 = nn.Conv1d(20, 23, 5, padding=2)#self.conv(20, 23, 5)
 
@@ -36,7 +36,7 @@ class CNN(nn.Module):
         #self.Latent_avg_pool =  nn.AdaptiveAvgPool1d(self.latent_dim)#nn.AdaptiveMaxPool1d(self.latent_dim)
         self.Latent_max_pool =  nn.AdaptiveMaxPool1d(self.latent_dim)#self.latent_dim)
 
-        self.Up_sample_first = nn.Upsample(62, scale_factor=None, align_corners=None)
+        self.Up_sample_first = nn.Upsample(124, scale_factor=None, align_corners=None)
         self.Up_sample_mid = nn.Upsample(size=None, scale_factor=2, align_corners=None)
         self.Up_sample_last = nn.Upsample(size=500, scale_factor=None, align_corners=None)
 
@@ -56,17 +56,17 @@ class CNN(nn.Module):
         x = self.Avg_pool(x)
 
         x = F.relu(self.conv2(x))
-        x = self.Max_pool(x)
+        x = self.Latent_max_pool(x)
         #x = self.Max_pool(x)
 
-        x = F.relu(self.conv3(x))
-        x = self.Latent_max_pool(x)
+        #x = F.relu(self.conv3(x))
+        #x = self.Latent_max_pool(x)
         #x = self.Max_pool(x)
 
         #x = self.conv4(x)
         #x = self.Latent_max_pool(x)
         
-        x = self.conv_mid(x)
+        #x = self.conv_mid(x)
         
         return x
   
@@ -78,13 +78,14 @@ class CNN(nn.Module):
         x_con = self.Up_sample_mid(x_con)
         x_con = F.relu(self.conv6(x_con))
         
-        x_con = self.Up_sample_mid(x_con)
+        #x_con = self.Up_sample_mid(x_con)
+        x_con = self.Up_sample_last(x_con)
         x_con = F.relu(self.conv7(x_con))
         
-        x_con = self.Up_sample_last(x_con)
+        #x_con = self.Up_sample_last(x_con)
         #x_con = F.relu(self.conv8(x_con))
 
-        x_con = F.relu(self.conv8(x_con))
+        #x_con = F.relu(self.conv8(x_con))
         #x_con = self.Up_sample_last(x_con)
 
         x_con = F.relu(self.conv_last1(x_con))
