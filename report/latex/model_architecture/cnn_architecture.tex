@@ -11,7 +11,7 @@ We start by introducing embeddings which embeds our data from a 23 channel dimen
 From this point, our latent representation $z$ is fed into the decoder. in the decoder, it goes through the same process, of 3 convolutional layers, in which we just increase the dimensionality back to the original size.
 
 \noindent
-In each of the convolutional layers, we use convolutions with stride=5, in the pursuit of maximizing the impact these convolutions have on the data. Due to the boundaries of the stride, we use padding to avoid dimension loss.\\
+In each of the convolutional layers, we use convolutions with kernel\_size=5 with stride=1, by having a kernel size 5 we increase our perceptive field, this means that each convolutional layer outputs greater amounts of amount of data, since it's looking at more elements at a time. Due to the boundaries of the kernel, we use padding to avoid dimension loss.\\
 
 
 
