@@ -1,12 +1,12 @@
-Embedding is a good way to encode the differences and similarities between tokens. In the case of proteins, there are some amino acids that can potentially replace others with no effect on the resulting structure of the protein. Thus, being able to learn that some amino acids are very similar is a potentially helpful tool for next token prediction. For this experiment we've trained two models with the following identical hyperparameters:
+Embedding is a good way to encode the differences and similarities between tokens. In the case of proteins, some amino acids can potentially replace others with no effect on the resulting structure of the protein. Thus, being able to learn that some amino acids are very similar is a potentially helpful tool for the next token prediction. For this experiment we've trained two models with the following identical hyperparameters:
 \begin{itemize}
-	\item Layers: $1$
-	\item Starting learning rate: $8e-4$
-	\item Learning rate schedule: Multiply by $0.2$ every 5 epochs
-	\item Hidden layer size: $512$
-	\item Training time: 30 epochs
+    \item Layers: $1$
+    \item Starting learning rate: $8e-4$
+    \item Learning rate schedule: Multiply by $0.2$ every 5 epochs
+    \item Hidden layer size: $512$
+    \item Training time: 30 epochs
 \end{itemize}
-The only difference between the two models is that one is trained on a onehot representation of the amino acids, while the other also learns a 30-dimensional embedding.\\
+The only difference between the two models is that one is trained on an onehot representation of the amino acids, while the other also learns a 30-dimensional embedding.\\
 
 \noindent
-Since embeddings will likely show some crucial similarities and differences between individual amino acids, we hypothesise that embeddings will significantly increase the performance of the network.
+Since embeddings will likely show some crucial similarities and differences between individual amino acids, we hypothesize that embeddings will significantly increase the performance of the network.
