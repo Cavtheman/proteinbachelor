@@ -15,9 +15,9 @@ class CNN(nn.Module):
         self.conv1 = nn.Conv1d(8, 6, 5, padding=2)#self.conv(30, 15, 5)
         self.conv2 = nn.Conv1d(6, 4, 5, padding=2)#self.conv(15, 8, 5)
         self.conv3 = nn.Conv1d(8, 6, 5, padding=2)#self.conv(8, 4, 5)
-        self.conv4 = nn.Conv1d(6, 4, 5, padding=2)
+        self.conv4 = nn.Conv1d(6, 2, 5, padding=2)
 
-        self.conv_mid = nn.Conv1d(4,4,5,padding=2)
+        #self.conv_mid = nn.Conv1d(2,2,5,padding=2)
 
         #Decode Layer
         self.conv5 = nn.Conv1d(4, 8, 5, padding=2)#self.conv(4, 8, 5)
@@ -66,7 +66,7 @@ class CNN(nn.Module):
         #x = self.conv4(x)
         #x = self.Latent_max_pool(x)
         
-        x = self.conv_mid(x)
+        #x = self.conv_mid(x)
         
         return x
   
