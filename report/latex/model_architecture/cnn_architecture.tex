@@ -1,9 +1,9 @@
 \subsubsection{convolutional autoencoder}
 
-We also experimented with a CNN model, which is built as a convolutional autoencoder. This model introduces encoding layers that reduce the dimensionality of the input $x$, down to a smaller latent representation $z$. From the latent dimension representation, we increase the dimensions in decoding layers, with the goal of reconstructing a $\hat{x}$, which is as close to the original input $x$. By doing this, the model should learn something which captures more properties of the data - more than a linear reduction method would. \\
+We also experimented with a CNN model, which is built as a convolutional autoencoder. This model introduces encoding layers that reduce the dimensionality of the input $x$, down to a smaller latent representation $z$. From the latent dimension representation, we increase the dimensions in decoding layers, with the goal of reconstructing $\hat{x}$, which is as close to the original input $x$. By doing this, the model should learn something which captures more properties of the data - more than a linear reduction method would. \\
 
 \noindent
-We start by introducing embeddings which embeds our data from a 23 channel dimension to a 12 channel dimension. the reduction of dimensions consists of 3 encoding convolutional layers. Each of these layers all uses the ReLU activation function, to get more reliable data. This counts for all layers in the network unless the last encoder layer. We do not use ReLU here to make $z$ as general as possible. The two first encoding layers consist of average pooling, and the last consists of one max pool - reducing the dimensions to a latent space $z$.  \\
+We start by introducing embeddings which embeds our data from a 23 channel dimension to a 12 channel dimension. the reduction of dimensions consists of 3 encoding convolutional layers. Since the features of the data are one-dimensional, we're using one-dimensional convolutions. Each of these layers all uses the ReLU activation function, to get more reliable data. This counts for all layers in the network unless the last encoder layer. We do not use ReLU here to make $z$ as general as possible. The two first encoding layers consist of average pooling, and the last consists of one max pool - reducing the dimensions to a latent space $z$.  \\
 
 %To avoid our bottleneck from being too steep, which would result in a lot of lost properties - we chose only our latent representation $z$ is reduced to a $4$x$latent\_dimension$, where the first index is our channel size and the $latent\_dimension$ is a predefined size.\\
 
@@ -11,7 +11,12 @@ We start by introducing embeddings which embeds our data from a 23 channel dimen
 From this point, our latent representation $z$ is fed into the decoder. in the decoder, it goes through the same process, of 3 convolutional layers, in which we just increase the dimensionality back to the original size.
 
 \noindent
-In each of the convolutional layers, we use convolutions with kernel\_size=5 with stride=1, by having a kernel size 5 we increase our perceptive field, this means that each convolutional layer outputs greater amounts of amount of data, since it's looking at more elements at a time. Due to the boundaries of the kernel, we use padding to avoid dimension loss.\\
+In each of the convolutional layers, we use convolutions with kernel\_size=5 with stride=1, by having a kernel size 5 we increase our perceptive field, this means that each convolutional layer outputs greater amounts of amount of data since it's looking at more elements at a time. Due to the boundaries of the kernel, we use padding to avoid dimension loss.\\
+
+\noindent
+Once the the the model reconstructed the original size, we use two extra convolutions, one with kernel\_size=3 and one with kernel\_size=1, both with stride=1. We do this to ensure that the model preserves the relation between the channels, once the final dimension is reached.
+
+
 
 
 
