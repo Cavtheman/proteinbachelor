@@ -23,10 +23,11 @@ For this experiment we will not include the TSNE plots.
 \end{figure}
 
 \begin{table}[!ht]
+  \centering
 \begin{tabular}{|l|lll|}
 \hline
-                                      &                                                     & Final Models                       &                \\ \cline{2-4} 
-                                      & \multicolumn{1}{l|}{Next token prediction accuracy} & \multicolumn{1}{l|}{Test Loss}     & Spearman's rho \\ \hline
+LSTM Results                          &                                                     & Final Models                       &                \\ \cline{2-4}
+                                      & \multicolumn{1}{l|}{Next token prediction}          & \multicolumn{1}{l|}{Test Loss}     & Spearman's rho \\ \hline
 2-layer, 50\% dropout, 512 features   & \multicolumn{1}{l|}{13.02\%}                        & \multicolumn{1}{l|}{2.82}          & 0.518          \\ \hline
 2-layer, no dropout, 512 features     & \multicolumn{1}{l|}{13.03\%}                        & \multicolumn{1}{l|}{2.83}          & 0.400          \\ \hline
 1-layer, no lr schedule, 512 features & \multicolumn{1}{l|}{13.34\%}                        & \multicolumn{1}{l|}{2.83}          & \textbf{0.605} \\ \hline
@@ -36,10 +37,11 @@ For this experiment we will not include the TSNE plots.
 \end{tabular}
 \end{table}
 \begin{table}[!ht]
+  \centering
 \begin{tabular}{|l|lll|}
 \hline
-                                      &                                                     & Minloss models                     &                \\ \cline{2-4} 
-                                      & \multicolumn{1}{l|}{Next token prediction accuracy} & \multicolumn{1}{l|}{Test Loss}     & Spearman's rho \\ \hline
+LSTM Results                          &                                                     & Minloss models                     &                \\ \cline{2-4}
+                                      & \multicolumn{1}{l|}{Next token prediction}          & \multicolumn{1}{l|}{Test Loss}     & Spearman's rho \\ \hline
 2-layer, 50\% dropout, 512 features   & \multicolumn{1}{l|}{13.03\%}                        & \multicolumn{1}{l|}{2.82}          & 0.539          \\ \hline
 2-layer, no dropout, 512 features     & \multicolumn{1}{l|}{13.78\%}                        & \multicolumn{1}{l|}{2.81}          & 0.427          \\ \hline
 1-layer, no lr schedule, 512 features & \multicolumn{1}{l|}{13.36\%}                        & \multicolumn{1}{l|}{2.83}          & 0.592          \\ \hline
