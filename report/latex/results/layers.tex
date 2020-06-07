@@ -1,0 +1,22 @@
+\begin{figure}[h]
+	% Accuracy on test set: 12.43%, loss 2.84
+  	\includegraphics[width=0.4\linewidth]{latex/imgs/tsne_1_layer_with_schedule_512_final.png}
+  	% Accuracy on test set: 13.03%, loss 2.83
+  	\includegraphics[width=0.4\linewidth]{latex/imgs/tsne_2_layer_no_drop_final.png}
+	\caption{TSNE dimensionality reduction of the two models. Left is 1-layer, right is 2-layer}
+\end{figure}
+
+\begin{figure}[h]
+	\includegraphics[width=0.4\linewidth]{latex/imgs/spearman_1_layer_with_schedule_512_final.png}
+	\includegraphics[width=0.4\linewidth]{latex/imgs/spearman_2_layer_no_drop_final.png}
+	\caption{Plots used to calculate the Spearman correlation. Left is 1-layer, right is 2-layer}
+\end{figure}
+
+\begin{table}[]
+\begin{tabular}{|l|l|l|l|}
+\hline
+        & Next token prediction accuracy & Test Loss & Spearman's rho\\ \hline
+1-layer & 12.43\%                        & 2.84      & 0.400         \\ \hline
+2-layer & 13.03\%                        & 2.83      & 0.428         \\ \hline
+\end{tabular}
+\end{table}
