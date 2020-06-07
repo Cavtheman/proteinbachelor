@@ -21,19 +21,19 @@ To formally understand what is happening, we will look at a very simple neural n
 \noindent
 by looking at this the above equation, it is clear to see that each weight affects the cost. But to find how much a specific weight ($w^n$) affects the cost, we will have to find the derivative of the cost with respect to $w^n$, which is achieved with the chain rule. For this notation, we define $z$ as being the value of a neuron before the activation function.\\
 
-$$
+\begin{align}
 \frac{\partial C}{\partial w^n} =\frac{\partial z^n}{\partial w^n}\frac{\partial a^n}{\partial z^n}\frac{\partial C}{  \partial a^n}
-$$
+\end{align}
 
 The same counts for how much impact the bias and the activation of the previous layer, recpectivly has on the Cost:
 
-$$
+\begin{align}
 \frac{\partial C}{\partial b^n} =\frac{\partial z^n}{\partial b^n}\frac{\partial a^n}{\partial z^n}\frac{\partial C}{  \partial a^n}
-$$
+\end{align}
 
-$$
+\begin{align}
 \frac{\partial C}{\partial a^{n-1}} =\frac{\partial z^n}{\partial a^{n-1}}\frac{\partial a^n}{\partial z^n}\frac{\partial C}{  \partial a^n}
-$$
+\end{align}
 
 \noindent
 With intuition we can simply keep iterating the same chain rule idea backward, to see how sensitive the cost is to previous weights and biases. \\
@@ -48,14 +48,16 @@ With intuition we can simply keep iterating the same chain rule idea backward, t
 \noindent
 For a fully connected network which has more neurons per layer, the same idea can be applied. Having a neural network like the one seen in figure(14). For any neuron $i \in \{1,2,...,k\}$ in layer (n-1), and any neuron $j \in \{1,2,...,t\}$ in layer n, the impact $w_{ji}$ has on the cost is calculated by: \\
 
-$$
+\begin{align}
 \frac{\partial C}{\partial w_{ji}^n} =\frac{\partial z_j^n}{\partial w_{ji}^n}\frac{\partial a_j^n}{\partial z_j^n}\frac{\partial C}{  \partial a_j^n}
-$$
+\end{align}
+
+\noindent
 Now since each neruon impact multiple neurons, which each impacts the cost, the impact of how much the activation function impacts the cost is calculated, like:
 
-$$
+\begin{align}
 \frac{\partial C}{\partial a^{n-1}_k} = \sum^t_{j=1} \frac{\partial z_j^n}{\partial a_k^{n-1}}\frac{\partial a_j^n}{\partial z_j^n}\frac{\partial C}{  \partial a_j^n}
-$$
+\end{align}
 
 \begin{figure}[!ht]
   \centering

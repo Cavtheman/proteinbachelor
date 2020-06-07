@@ -4,3 +4,10 @@
 \item Training a TCN \cite{intro}
 \item Experiment with different dropout values for 2-layer LSTM
 \end{itemize}
+
+\noindent
+A potential improvement of the CNN could be working with dilated kernels. Dilated convolutional kernel, are like regular convolutional kernels, but with some spacing between the values in the kernel. Dilated kernels has proved to significantly improve performance, compared to non-dilated counterparts\cite{cp}. \\
+
+\noindent
+Another potential way of making the model learn insight of the internal structure of the proteins, is instead of introducing a bottleneck, is to introduce masking. This has proven to achieve high permance in many NLP tasks\cite{BERT}. Masking is a method, which masks some tokens from the input. This mask, could be replacing the original token with another random token or a completely different value. The goal is to predict the original vocabulary before the masking. This forces the model learn some internal representation of the sequence structure.
+
