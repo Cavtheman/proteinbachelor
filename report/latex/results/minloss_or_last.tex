@@ -1,15 +1,15 @@
-For this experiment the Spearman correlation and TSNE plots can be found in the appendices. Due to the nature of this experiment, the tables below also contain the results of all the previous experiments.
+For this experiment the Spearman correlation and TSNE plots can be found in the appendices. Due to the nature of this experiment, the tables below also contain the results of all the previous experiments. The results can be seen in tables ~\ref{tab:final} and ~\ref{tab:minloss}.
 \begin{table}[!ht]
   \centering
 \begin{tabular}{|l|lll|}
 \hline
-LSTM Results                          &                                                     & Final Models                       &                \\ \cline{2-4}
+LSTM Results                          &                                                     & Final models                       &                \\ \cline{2-4}
                                       & \multicolumn{1}{l|}{Next token prediction}          & \multicolumn{1}{l|}{Test Loss}     & Spearman's rho \\ \hline
 2-layer, 50\% dropout, 512 features   & \multicolumn{1}{l|}{13.02\%}                        & \multicolumn{1}{l|}{2.82}          & 0.518          \\ \hline
 2-layer, no dropout, 512 features     & \multicolumn{1}{l|}{13.03\%}                        & \multicolumn{1}{l|}{2.83}          & 0.400          \\ \hline
 1-layer, no lr schedule, 512 features & \multicolumn{1}{l|}{13.34\%}                        & \multicolumn{1}{l|}{2.83}          & \textbf{0.605} \\ \hline
 1-layer, 256 features                 & \multicolumn{1}{l|}{11.41\%}                        & \multicolumn{1}{l|}{2.86}          & 0.435          \\ \hline
-1-layer, 512 features                 & \multicolumn{1}{l|}{12.43\%}                        & \multicolumn{1}{l|}{2.84}          & 0.428          \\ \hline
+1-layer, 512 features                 & \multicolumn{1}{l|}{12.43\%}                        & \multicolumn{1}{l|}{2.84}          & 0.474          \\ \hline
 1-layer, 1024 features                & \multicolumn{1}{l|}{\textbf{14.37\%}}               & \multicolumn{1}{l|}{\textbf{2.79}} & 0.507          \\ \hline
 \end{tabular}
 \caption{Results for final models}
@@ -25,7 +25,7 @@ LSTM Results                          &                                         
 2-layer, no dropout, 512 features     & \multicolumn{1}{l|}{13.78\%}                        & \multicolumn{1}{l|}{2.81}          & 0.427          \\ \hline
 1-layer, no lr schedule, 512 features & \multicolumn{1}{l|}{13.36\%}                        & \multicolumn{1}{l|}{2.83}          & 0.592          \\ \hline
 1-layer, 256 features                 & \multicolumn{1}{l|}{11.40\%}                        & \multicolumn{1}{l|}{2.87}          & 0.424          \\ \hline
-1-layer, 512 features                 & \multicolumn{1}{l|}{12.43\%}                        & \multicolumn{1}{l|}{2.85}          & 0.414          \\ \hline
+1-layer, 512 features                 & \multicolumn{1}{l|}{12.43\%}                        & \multicolumn{1}{l|}{2.85}          & 0.598          \\ \hline
 1-layer, 1024 features                & \multicolumn{1}{l|}{\textbf{14.22\%}}               & \multicolumn{1}{l|}{\textbf{2.80}} & \textbf{0.627} \\ \hline
 \end{tabular}
 \caption{Results for minloss models}
