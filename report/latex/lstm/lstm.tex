@@ -163,7 +163,7 @@ However, in an LSTM, $c_t$ is calculated differently, so let's look at how this 
 
 \begin{align}
     c_t &= c_{t-1} \otimes f_t \oplus i_t \\
-    &=  c_{t-1} \otimes f_t \oplus \tilde{c}_t \otimes \tilde{i}_t
+    &=  c_{t-1} \otimes f_t \oplus \tilde{c}_t \otimes \tilde{i}_t \\
     &= c_{t-1} \otimes \sigma (W_f \cdot [x_t,h_{t-1}]) \oplus tanh(W_c \cdot [x_t,h_{t-1}]) \otimes \sigma (W_i \cdot [x_t,h_{t-1}])
 \end{align}
 
@@ -212,7 +212,7 @@ The fact that we now have a derivative consisting of several additions of number
 \end{align}
 
 \noindent
-And interesting note here is the fact that the forget gate comes through all of this. This means that the LSTM can pick and choose information to be forgotten and information to be remembered at any given time step. This property is significant in preventing vanishing gradients. Take a look at this expression once again, and assume that for this $s < T$, we have:
+An interesting note here is the fact that the forget gate comes through all of this. This means that the LSTM can pick and choose information to be forgotten and information to be remembered at any given time step. This property is significant in preventing vanishing gradients. Take a look at this expression once again, and assume that for this $s < T$, we have:
 
 \begin{align}
     \sum_{t=1}^s \frac{\partial E_t}{\partial W} \rightarrow 0
