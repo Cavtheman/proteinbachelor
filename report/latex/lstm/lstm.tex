@@ -83,7 +83,7 @@ Plugging these expressions in, we get the following expression:
 \end{align}
 
 \noindent
-Since the derivative of the tangent is always strictly $<1$ as can be seen in Figure ~\ref{fig:tanh_deriv}, the expression will tend towards zero as $s \rightarrow \infty$. However, if the weights $W_c$ are significantly large, they may cause the expression to instead explode towards $\infty$ as $s \rightarrow \infty$.\\
+Since the derivative of the tangent is $\leq1$ as can be seen in Figure ~\ref{fig:tanh_deriv}, the expression will tend towards zero as $s \rightarrow \infty$. However, if the weights $W_c$ are significantly large, they may cause the expression to instead explode towards $\infty$ as $s \rightarrow \infty$. It should be noted that while the derivative at $0$ is equal to $1$, it is not very likely that this event will happen when backpropagating.\\
 
 \begin{figure}[h]
     \centering
