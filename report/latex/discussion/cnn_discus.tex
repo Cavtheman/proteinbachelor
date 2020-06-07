@@ -1,0 +1,22 @@
+In the process making the CNN, we did a lot of tuning of hyperparameters, before coming up with the final model. In the pursuit of getting the best performing model, we started to sanity check our model. We did this by only introducing the bottleneck to the channel dimension, which led to a 100\% accuracy in reconstruction. Once this was done, we started adding a bottleneck to the feature size as well. At this point, we started with tuning the hyperparameters: number of hidden layers, and the sizes of each hidden layer. \\
+
+\noindent
+In theory, increasing the number of hidden layers will increase the models potential of solving more complex tasks, corresponding to the abstraction of the dataset.\\
+
+\noindent
+We experienced when increasing the number of hidden layers, the loss would at some point start increasing. Yet, turning the learning rate down didn't solve the problem. Thus, the problem could be the probability distribution in cross-entropy loss function converged to all zeros. This could be solved by adding some epsilon in the calculation of the probability distribution. We ended up settling with the layers explained in the CNN architecture section. Thus, avoiding the increasing loss. \\
+
+\noindent
+Since the increase of layers corresponds to the abstraction of the dataset another solution could have been to increase the size of the dataset. Since the increase of the loss could mean that we did not have enough abstraction in the dataset.
+
+\noindent
+We started to tune the sizes of each hidden layer. meaning the way the dimensionality changed over each specific hidden layer. This was simply a trial and error task, leading to what yielded the best results.
+
+\noindent
+We only had one experiment with CNN, which is not covering the potential of a Convolutional network. That one experiment was arguably also a bad one. When checking how much impact the latent dimension, we should have made experiments with only reducing and increasing either the channel size or the feature size. Doing in would have been easier to tell which has the most impact on the final result. \\
+
+\noindent
+During the trial and error phase, we failed to document how each of the variable tunings affected the model. This should have been documented since it would have made it easier to understand our path towards the final model.
+
+\noindent
+The CNN ended up performing poorly compared to the LSTM. CNN was a very simple model, trying to solve a very complex problem. Thus, we can't rule out whether or not a CNN can be used to solve this specific problem. We chose to use a bottleneck, which should force the model to learn some meaningful information about the structure. This might not be the optimal way of learning useful insights.
