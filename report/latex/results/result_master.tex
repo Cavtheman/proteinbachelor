@@ -21,110 +21,12 @@ The second evaluation will be on the stability dataset. This evaluation will be 
 \input{latex/results/dropout}
 
 \subsubsection{Feature size}
-\input{latex/results/features}
+\input{latex/results/feature_size}
 
 \subsubsection{Learning Rate}
 \input{latex/results/lr}
 
 \subsubsection{Minimum loss model vs last model} % Finished
 %\input{latex/results/minloss_or_last}
-
-% TSNE plots
-\begin{figure}[!ht]
-  \centering
-  % Accuracy on test set: 13.02%, loss 2.82
-  \includegraphics[width=0.4\linewidth]{latex/imgs/tsne_2_layer_05_drop_final.png}
-  % Accuracy on test set: 13.03%, loss 2.82
-  \includegraphics[width=0.4\linewidth]{latex/imgs/tsne_2_layer_05_drop_minloss.png}
-  \caption{TSNE dimensionality reduction. Left is final model, right is minloss model.}
-\end{figure}
-\begin{figure}[!ht]
-  \centering
-  % 0.518 and 0.539
-  \includegraphics[width=0.4\linewidth]{latex/imgs/spearman_2_layer_05_drop_final.png}
-  \includegraphics[width=0.4\linewidth]{latex/imgs/spearman_2_layer_05_drop_minloss.png}
-  \caption{Plot showing the values the spearman correlation was calculated from.}
-\end{figure}
-
-
-\begin{figure}[!ht]
-  \centering
-  % Accuracy on test set: 13.03%, loss 2.83
-  \includegraphics[width=0.4\linewidth]{latex/imgs/tsne_2_layer_no_drop_final.png}
-  % Accuracy on test set: 13.78%, loss 2.81
-  \includegraphics[width=0.4\linewidth]{latex/imgs/tsne_2_layer_no_drop_minloss.png}
-  \caption{Graph showing that high spearman correlation does not necessarily mean a good score. Image source:\cite{spearman}}
-\end{figure}
-\begin{figure}[!ht]
-  \centering
-  % Accuracy on test set: 13.34%, loss 2.83
-  \includegraphics[width=0.4\linewidth]{latex/imgs/tsne_1_layer_no_schedule_512_final.png}
-  % Accuracy on test set: 13.36%, loss 2.83
-  \includegraphics[width=0.4\linewidth]{latex/imgs/tsne_1_layer_no_schedule_512_minloss.png}
-  \caption{Graph showing that high spearman correlation does not necessarily mean a good score. Image source:\cite{spearman}}
-\end{figure}
-\begin{figure}[!ht]
-  \centering
-  % Accuracy on test set: 12.43%, loss 2.84
-  \includegraphics[width=0.4\linewidth]{latex/imgs/tsne_1_layer_with_schedule_512_final.png}
-  % Accuracy on test set: 12.43%, loss 2.85
-  \includegraphics[width=0.4\linewidth]{latex/imgs/tsne_1_layer_with_schedule_512_minloss.png}
-  \caption{Graph showing that high spearman correlation does not necessarily mean a good score. Image source:\cite{spearman}}
-\end{figure}
-\begin{figure}[!ht]
-  \centering
-  % Accuracy on test set: 11.41%, loss 2.86
-  \includegraphics[width=0.4\linewidth]{latex/imgs/tsne_1_layer_with_schedule_256_final.png}
-  % Accuracy on test set:  11.40%, loss 2.87
-  \includegraphics[width=0.4\linewidth]{latex/imgs/tsne_1_layer_with_schedule_256_minloss.png}
-  \caption{Graph showing that high spearman correlation does not necessarily mean a good score. Image source:\cite{spearman}}
-\end{figure}
-\begin{figure}[!ht]
-  \centering
-  % Accuracy on test set: 14.37%, loss 2.79
-  \includegraphics[width=0.4\linewidth]{latex/imgs/tsne_1_layer_with_schedule_1024_final.png}
-  % Accuracy on test set:  14.22%, loss 2.80
-  \includegraphics[width=0.4\linewidth]{latex/imgs/tsne_1_layer_with_schedule_1024_minloss.png}
-  \caption{Graph showing that high spearman correlation does not necessarily mean a good score. Image source:\cite{spearman}}
-\end{figure}
-
-% KIG PÅ SPEARMAN DATA
-% Spearman Plots
-
-\begin{figure}[!ht]
-  \centering
-  % 0.400 and 0.427
-  \includegraphics[width=0.4\linewidth]{latex/imgs/spearman_2_layer_no_drop_final.png}
-  \includegraphics[width=0.4\linewidth]{latex/imgs/spearman_2_layer_no_drop_minloss.png}
-  \caption{Graph showing that high spearman correlation does not necessarily mean a good score. Image source:\cite{spearman}}
-\end{figure}
-\begin{figure}[!ht]
-  \centering
-  % 0.605 and 0.592
-  \includegraphics[width=0.4\linewidth]{latex/imgs/spearman_1_layer_no_schedule_512_final.png}
-  \includegraphics[width=0.4\linewidth]{latex/imgs/spearman_1_layer_no_schedule_512_minloss.png}
-  \caption{Graph showing that high spearman correlation does not necessarily mean a good score. Image source:\cite{spearman}}
-\end{figure}
-\begin{figure}[!ht]
-  \centering
-  % 0.428 and 0.414
-  \includegraphics[width=0.4\linewidth]{latex/imgs/spearman_1_layer_with_schedule_512_final.png}
-  \includegraphics[width=0.4\linewidth]{latex/imgs/spearman_1_layer_with_schedule_512_minloss.png}
-  \caption{Graph showing that high spearman correlation does not necessarily mean a good score. Image source:\cite{spearman}}
-\end{figure}
-\begin{figure}[!ht]
-  \centering
-  % 0.435 and 0.424
-  \includegraphics[width=0.4\linewidth]{latex/imgs/spearman_1_layer_with_schedule_256_final.png}
-  \includegraphics[width=0.4\linewidth]{latex/imgs/spearman_1_layer_with_schedule_256_minloss.png}
-  \caption{Graph showing that high spearman correlation does not necessarily mean a good score. Image source:\cite{spearman}}
-\end{figure}
-\begin{figure}[!ht]
-  \centering
-  % 0.507 and 0.627
-  \includegraphics[width=0.4\linewidth]{latex/imgs/spearman_1_layer_with_schedule_1024_final.png}
-  \includegraphics[width=0.4\linewidth]{latex/imgs/spearman_1_layer_with_schedule_1024_minloss.png}
-  \caption{Graph showing that high spearman correlation does not necessarily mean a good score. Image source:\cite{spearman}}
-\end{figure}
 
 \subsubsection{CNN}
