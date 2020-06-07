@@ -3,6 +3,7 @@ In this section we will go over the results of the various experiments we have c
 \noindent
 The first evaluation will be on a structural classification dataset, which will be a qualitative analysis in which we perform t-distributed stochastic neighbor embedding (TSNE) dimensionality reduction on the data, and see whether it is able to cleanly separate the different types of protein structures. TSNE is preferred here over something like principal component analysis (PCA) due to this non-linearity of the reduction. This evaluation will be performed on the structural classification dataset. While using a classification method like k-nearest neighbors (KNN) might seem intuitive to quantitatively evaluate this, the non-linearity means that neither distance nor density is preserved between data points. We will also look at the next token prediction accuracy for the LSTM, but because we want to quantify how well it represents the proteins, this is not necessarily a good way to do that. It will mostly be used for comparison to see if there are any interesting insights.\\
 
+
 \noindent
 The second evaluation will be on the stability dataset. This evaluation will be quantitative, using Spearman's rank correlation coefficent. This coefficient measures the degree to which the relationship between two inputs can be described using a monotonic function. This means that having a high spearman correlation is equivalent to having a highly descriptive representation. It does not necessarily mean that the linear regression model we have trained provides good results in and of itself, since the coefficient does not describe a 1:1 correlation. This can be seen in figure ~\ref{fig:spearman}.
 
@@ -20,6 +21,42 @@ The second evaluation will be on the stability dataset. This evaluation will be 
 \subsubsection{Dropout vs no dropout}
 \input{latex/results/dropout}
 
+
+% Spearman Plots
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.4\linewidth]{latex/imgs/spearman_2_layer_05_drop_final.png}
+  \includegraphics[width=0.4\linewidth]{latex/imgs/spearman_2_layer_05_drop_minloss.png}
+  \caption{Graph showing that high spearman correlation does not necessarily mean a good score. Image source:\cite{spearman}}
+\end{figure}
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.4\linewidth]{latex/imgs/spearman_2_layer_no_drop_final.png}
+  \includegraphics[width=0.4\linewidth]{latex/imgs/spearman_2_layer_no_drop_minloss.png}
+  \caption{Graph showing that high spearman correlation does not necessarily mean a good score. Image source:\cite{spearman}}
+\end{figure}
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.4\linewidth]{latex/imgs/spearman_1_layer_no_schedule_512_final.png}
+  \includegraphics[width=0.4\linewidth]{latex/imgs/spearman_1_layer_no_schedule_512_minloss.png}
+  \caption{Graph showing that high spearman correlation does not necessarily mean a good score. Image source:\cite{spearman}}
+\end{figure}
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.4\linewidth]{latex/imgs/spearman_1_layer_with_schedule_512_final.png}
+  \includegraphics[width=0.4\linewidth]{latex/imgs/spearman_1_layer_with_schedule_512_minloss.png}
+  \caption{Graph showing that high spearman correlation does not necessarily mean a good score. Image source:\cite{spearman}}
+\end{figure}
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=0.4\linewidth]{latex/imgs/spearman_1_layer_with_schedule_256_final.png}
+  \includegraphics[width=0.4\linewidth]{latex/imgs/spearman_1_layer_with_schedule_256_minloss.png}
+  \caption{Graph showing that high spearman correlation does not necessarily mean a good score. Image source:\cite{spearman}}
+\end{figure}
+\newpage
+\subsubsection{CNN}
+\input{latex/results/cnn_results}
+
 \subsubsection{Feature size}
 \input{latex/results/feature_size}
 
@@ -30,3 +67,4 @@ The second evaluation will be on the stability dataset. This evaluation will be 
 \input{latex/results/minloss_or_last}
 
 \subsubsection{CNN}
+
