@@ -1,7 +1,7 @@
 Using the CNN we reduce the dimension of each sequence to some latent representation $z$. Using $z$ in combination with t-sne, the goal is to get a two-dimensional representation of each sequence, showing that some separation could be seen in between the secondary structures of the protein. \\
 
 \noindent
-During the experimenting with this model, we worked with a learning rate of $lr=1e-4$ and 3 layers in each encoding- and decoding phase. Since we experienced that introducing a too steep bottleneck would yield worse results. So this experiment's goal is to see how much the latent space size, means to the final result.
+while experimenting with this model, we worked with a learning rate of $lr=1e-4$ and 3 layers in each encoding- and decoding phase. We experienced early on that introducing a too steep bottleneck would yield worse results. So this experiment's goal is to see how much the latent space size, means to the final result.
 
 \noindent
 The way our experiments vary from each other is how much we reduce the feature-dimension. Our two experiments work with the latent feature-dimensions 50 and 100. thus the $z$ will either have a size of $2$x$50$ or $4$x$100$. the latent representation will then get flattened and used in t-sne. \\
@@ -13,4 +13,4 @@ The result of the CNN model will be evaluated using the model with the minimum l
 This is a very simple test, with a very simple model. We are mainly using the CNN to compare how well it compares to the LSTM. \\
 
 \noindent
-we hypothesize that model with higher latent dimensions has a lower loss, since it has more data to use in the reconstruction. Also we expect that
+We hypothesize that model with higher latent dimensions has a lower loss, since it has more data to use in the reconstruction. Also we expect that

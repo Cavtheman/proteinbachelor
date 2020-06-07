@@ -1,4 +1,4 @@
-Training the model with different sizes of latent dimensions yielded some different results, in different aspects of the task the model had. Below can we see how the loss differ from each other: \\
+Training the model with different sizes of latent dimensions yielded some different results, in different aspects of the task the model had. We can see how the training loss progressed through the epochs in Figure ~\ref{fig:cnn_loss}.\\
 
 \begin{figure}[!ht]
   \centering
@@ -9,7 +9,7 @@ Training the model with different sizes of latent dimensions yielded some differ
 \end{figure}
 
 \noindent
-As can be seen on the graph (figure ~\ref{fig:cnn_loss}), the one with a high latent dimension had a noticeably better loss, than the one with a lower latent dimension. Which makes good sense, since the model with a greater latent dimension has more data to use in the reconstruction. Since the loss was based on the model's ability to reconstruct the image; it is no surprise that the one with higher dimensionality reduction, had better reconstruction accuracy.
+As can be seen on the graph (Figure ~\ref{fig:cnn_loss}), the one with a high latent dimension had a noticeably better loss, than the one with a lower latent dimension. Which makes good sense, since the model with a greater latent dimension has more data to use in the reconstruction. Since the loss was based on the model's ability to reconstruct the image; it is no surprise that the one with higher dimensionality reduction, had better reconstruction accuracy.
 
 \begin{table}[!ht]
 \centering
@@ -23,16 +23,16 @@ fully trained model & 0.2058 & 0.1469 \\ \hline
 \end{table}
 
 \noindent
-It's important to note, that the reconstruction accuracy is not defining how well the model is performing on the separation task or the spearmen correlation.\\
+It's important to note that the reconstruction accuracy is not representative of the models performance on the separation or the stability prediction tasks.\\
 
 \noindent
-The following figures (figure ~\ref{fig:plot_50} and ~\ref{fig:plot_100}) show the structural plotting of the model's latent representation run through a t-sne. As can be seen, on the figures. The model seems to find some separation between the different structural classes. As can be seen, both models find some separation between classes (C, B, G) with some overlapping. The rest of the classes is mostly spread out between the groups. Indicating that this model is not very good at finding much structural separation. \\
+Figures ~\ref{fig:plot_50} and ~\ref{fig:plot_100} show the structural plotting of the model's latent representation run through a TSNE dimensionality reduction. The model does find some separation between the different structural classes, but it does not seem to be nearly as clean as the LSTM results. As can be seen, both models find some separation between classes (C, B, G) with some overlap. The rest of the classes are mostly spread out between the groups. This result indicates that this model is not very good at finding much structural separation. \\
 
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=0.4\linewidth]{latex/imgs/last_50.png}
   \includegraphics[width=0.4\linewidth]{latex/imgs/best_50.png}
-  \caption{plot showing secondary structure seperation with latent dimension $2$x$50$. Fully trained model(left), min loss model (left)}
+  \caption{Plot showing secondary structure seperation with latent dimension $2$x$50$. Fully trained model(left), min loss model (left)}
   \label{fig:plot_50}
 \end{figure}
 
@@ -40,13 +40,12 @@ The following figures (figure ~\ref{fig:plot_50} and ~\ref{fig:plot_100}) show t
   \centering
   \includegraphics[width=0.4\linewidth]{latex/imgs/last_100.png}
   \includegraphics[width=0.4\linewidth]{latex/imgs/best_100.png}
-  \caption{plot showing secondary structure seperation with latent dimension $4$x$100$. Fully trained model(left), min loss model (left)}
+  \caption{Plot showing secondary structure seperation with latent dimension $4$x$100$. Fully trained model(left), min loss model (left)}
   \label{fig:plot_100}
 \end{figure}
 
 \noindent
-The two figures (figure ~\ref{fig:stab_100} and ~\ref{fig:stab_50}) yielded the following results on the stability dataset calculating spearment correlation.
-
+Figures ~\ref{fig:stab_100} and ~\ref{fig:stab_50}) show the resulting Spearman correlation data plots. With results
 
 \begin{figure}[!ht]
   \centering
