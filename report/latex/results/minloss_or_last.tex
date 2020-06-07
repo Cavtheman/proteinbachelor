@@ -1,0 +1,21 @@
+\begin{figure}[!ht]
+  \centering
+  % Accuracy on test set: 13.34%, loss 2.83
+  \includegraphics[width=0.49\linewidth]{latex/imgs/tsne_1_layer_no_schedule_512_final.png}
+  % Accuracy on test set: 12.43%, loss 2.84
+  \includegraphics[width=0.49\linewidth]{latex/imgs/tsne_1_layer_with_schedule_512_final.png}
+  % 0.605 and 0.592
+  \includegraphics[width=0.49\linewidth]{latex/imgs/spearman_1_layer_no_schedule_512_final.png}
+  % 0.428 and 0.414
+  \includegraphics[width=0.49\linewidth]{latex/imgs/spearman_1_layer_with_schedule_512_final.png}
+  \caption{TSNE dimensionality reduction  and Spearman's rho data plots of the two models. Left is without no learning rate schedule, right is with the schedule mention in the experiments section.}
+\end{figure}
+
+\begin{table}[!ht]
+\begin{tabular}{|l|l|l|l|}
+\hline
+              & Next token prediction accuracy & Test Loss & Spearman's rho\\ \hline
+No schedule   & 13.34\%                        & 2.84      & 0.605         \\ \hline
+With schedule & 12.43\%                        & 2.84      & 0.428         \\ \hline
+\end{tabular}
+\end{table}
