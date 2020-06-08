@@ -9,31 +9,32 @@ But a gradient descent algorithm is an algorithm that finds the minimum given it
 
 \noindent
 Each neuron's value is affected by the previous weights. This means, that the gradient of a single weight in one of the first layers, affects the value of all the following layers. If the gradient of this weight is either negative or positive, it will either affect the output in either a negative or positive way. The magnitude of this gradient, explains how great influence this weight has on the output.
-To formally understand what is happening, we will look at a very simple neural network, where each layer contains a single neuron, see figure(13). Explaining this as an equation, we define $a^n$ as the predicted output, $L$ and $C$ as some loss-function and cost respectively, and $y$ as the desired output.
+To formally understand what is happening, we will look at a very simple neural network, where each layer contains a single neuron, see figure(~\ref{fig:simple_layers}). Explaining this as an equation, we define $a^n$ as the predicted output, $L$ and $C$ as some loss-function and cost respectively, and $y$ as the desired output.
 
 \begin{align}
-    a^{n-2}& =& \sigma&(a^{n-3}w^{n-2} + b^{n-2}) \\
-    a^{n-1}& =& \sigma&(a^{n-2}w^{n-1} + b^{n-1})\\
-    a^n& =& \sigma&(a^{n-1}w^n + b^n)\\
-    C& =& L&(a^n, y)
+    a^{n-2} &= \sigma(a^{n-3}w^{n-2} + b^{n-2}) \\
+    a^{n-1} &= \sigma(a^{n-2}w^{n-1} + b^{n-1})\\
+    a^n &= \sigma(a^{n-1}w^n + b^n)\\
+    C &= L(a^n, y)
 \end{align}
 
 \noindent
 by looking at this the above equation, it is clear to see that each weight affects the cost. But to find how much a specific weight ($w^n$) affects the cost, we will have to find the derivative of the cost with respect to $w^n$, which is achieved with the chain rule. For this notation, we define $z$ as being the value of a neuron before the activation function.\\
 
-$$
+\begin{align}
 \frac{\partial C}{\partial w^n} =\frac{\partial z^n}{\partial w^n}\frac{\partial a^n}{\partial z^n}\frac{\partial C}{  \partial a^n}
-$$
+\end{align}
 
+\noindent
 The same counts for how much impact the bias and the activation of the previous layer, recpectivly has on the Cost:
 
-$$
+\begin{align}
 \frac{\partial C}{\partial b^n} =\frac{\partial z^n}{\partial b^n}\frac{\partial a^n}{\partial z^n}\frac{\partial C}{  \partial a^n}
-$$
+\end{align}
 
-$$
+\begin{align}
 \frac{\partial C}{\partial a^{n-1}} =\frac{\partial z^n}{\partial a^{n-1}}\frac{\partial a^n}{\partial z^n}\frac{\partial C}{  \partial a^n}
-$$
+\end{align}
 
 \noindent
 With intuition we can simply keep iterating the same chain rule idea backward, to see how sensitive the cost is to previous weights and biases. \\
@@ -42,20 +43,23 @@ With intuition we can simply keep iterating the same chain rule idea backward, t
   \centering
   \includegraphics[scale=0.4]{latex/imgs/simplebackprop.png}
   \caption{simple neural network}\label{Baseline:before}
+  \label{fig:simple_layers}
 \end{figure}
 
 
 \noindent
 For a fully connected network which has more neurons per layer, the same idea can be applied. Having a neural network like the one seen in figure(14). For any neuron $i \in \{1,2,...,k\}$ in layer (n-1), and any neuron $j \in \{1,2,...,t\}$ in layer n, the impact $w_{ji}$ has on the cost is calculated by: \\
 
-$$
+\begin{align}
 \frac{\partial C}{\partial w_{ji}^n} =\frac{\partial z_j^n}{\partial w_{ji}^n}\frac{\partial a_j^n}{\partial z_j^n}\frac{\partial C}{  \partial a_j^n}
-$$
+\end{align}
+
+\noindent
 Now since each neruon impact multiple neurons, which each impacts the cost, the impact of how much the activation function impacts the cost is calculated, like:
 
-$$
+\begin{align}
 \frac{\partial C}{\partial a^{n-1}_k} = \sum^t_{j=1} \frac{\partial z_j^n}{\partial a_k^{n-1}}\frac{\partial a_j^n}{\partial z_j^n}\frac{\partial C}{  \partial a_j^n}
-$$
+\end{align}
 
 \begin{figure}[!ht]
   \centering

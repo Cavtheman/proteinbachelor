@@ -1,22 +1,28 @@
-In the process making the CNN, we did a lot of tuning of hyperparameters, before coming up with the final model. In the pursuit of getting the best performing model, we started to sanity check our model. We did this by only introducing the bottleneck to the channel dimension, which led to a 100\% accuracy in reconstruction. Once this was done, we started adding a bottleneck to the feature size as well. At this point, we started with tuning the hyperparameters: number of hidden layers, and the sizes of each hidden layer. \\
+In the process of constructing the CNN, we had to do a lot of hyperparameter tuning before coming up with the final model. In the pursuit of getting the best performing model, we started with a sanity check. We did this by only introducing the bottleneck to the channel dimension, which led to a 100\% accuracy in reconstruction. Once this was done, we started adding a bottleneck to the feature size as well. At this point, we started with tuning some of the hyperparameters: the number of hidden layers, and the sizes of each hidden layer. \\
 
 \noindent
-In theory, increasing the number of hidden layers will increase the models potential of solving more complex tasks, corresponding to the abstraction of the dataset.\\
+It's important to note that the reconstruction accuracy is not representative of the models performance on the separation or stability prediction tasks.\\
 
 \noindent
-We experienced when increasing the number of hidden layers, the loss would at some point start increasing. Yet, turning the learning rate down didn't solve the problem. Thus, the problem could be the probability distribution in cross-entropy loss function converged to all zeros. This could be solved by adding some epsilon in the calculation of the probability distribution. We ended up settling with the layers explained in the CNN architecture section. Thus, avoiding the increasing loss. \\
+As can be seen in Table ~\ref{tab:cnn_results}, the model with a high latent dimension had a noticeably better loss than the one with a lower latent dimension. This makes good sense, since the model with a greater latent dimension has more data to use in the reconstruction. It does mean that the model does not need to learn the structure of the protein as much, however. Since the loss was based on the model's ability to reconstruct the image; it is no surprise that the one with higher dimensionality reduction, had better reconstruction accuracy.
 
 \noindent
-Since the increase of layers corresponds to the abstraction of the dataset another solution could have been to increase the size of the dataset. Since the increase of the loss could mean that we did not have enough abstraction in the dataset.
+Figures ~\ref{fig:plot_50} and ~\ref{fig:plot_100} show the structural plotting of the model's latent representation run through a TSNE dimensionality reduction. The model does find some separation between the different structural classes, but it does not seem to be nearly as clean as the LSTM results. As can be seen, both models find some separation between classes (C, B, G) with some overlap. The rest of the classes are mostly spread out between the groups. This result indicates that this model is not very good at finding much structural separation. \\
 
 \noindent
-We started to tune the sizes of each hidden layer. meaning the way the dimensionality changed over each specific hidden layer. This was simply a trial and error task, leading to what yielded the best results.
+We experienced that when increasing the number of hidden layers, the loss would at some point start increasing. Yet, turning the learning rate down didn't solve the problem. Thus, the problem could be that the probability distribution in the cross-entropy loss function converged to all zeros. This could be solved by adding some epsilon in the calculation of the probability distribution. We ended up settling with the layers explained in the CNN architecture section. Thus, avoiding the increasing loss. \\
 
 \noindent
-We only had one experiment with CNN, which is not covering the potential of a Convolutional network. That one experiment was arguably also a bad one. When checking how much impact the latent dimension, we should have made experiments with only reducing and increasing either the channel size or the feature size. Doing in would have been easier to tell which has the most impact on the final result. \\
+We started to tune the sizes of each hidden layer. Meaning the way the dimensionality changed over each specific hidden layer. This was simply a trial and error task, leading to what yielded the best results.
+
+\noindent
+We only had one experiment with CNN, consisting of changing both the latent dimension and the channel size, which does not cover the full potential of a convolutional network. When checking how much impact the latent dimension had on the results, we should have made experiments with only reducing and increasing either the channel size or the feature size. Doing so would have made it easier to tell how each parameter effects the end result. \\
+
+\noindent
+In general throughout these experiments, the results from the minimum loss model doesn't perform that differently compared to the fully trained model.
 
 \noindent
 During the trial and error phase, we failed to document how each of the variable tunings affected the model. This should have been documented since it would have made it easier to understand our path towards the final model.
 
 \noindent
-The CNN ended up performing poorly compared to the LSTM. CNN was a very simple model, trying to solve a very complex problem. Thus, we can't rule out whether or not a CNN can be used to solve this specific problem. We chose to use a bottleneck, which should force the model to learn some meaningful information about the structure. This might not be the optimal way of learning useful insights.
+The CNN ended up performing poorly compared to the LSTM. Our CNN was a relatively simple model, trying to solve a very complex problem. With the model only being able to reach a Spearman correlation score of $0.351$, the results are not nearly as good as we had hoped. However, we can't rule out whether or not a CNN can be used to solve this specific problem. We chose to use a bottleneck type architecure, but this might not be the optimal way of learning a useful representation of the structure.
