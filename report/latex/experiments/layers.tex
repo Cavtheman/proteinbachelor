@@ -1,10 +1,10 @@
 Stacking LSTMs is a way to increase the non-linearity of the network. The idea is similar to increasing the depth of conventional neural networks. In a stacked LSTM, there are two or LSTM cells per element in the input sequence. The way this works is that the hidden state of the first cell is passed along as the input to the next cell and so on. For this experiment we have trained two models with the following identical hyperparameters:
 \begin{itemize}
-	\item Character embedding size: 30
-	\item Starting learning rate: $8e-4$
-	\item Learning rate schedule: Multiply by $0.2$ every 5 epochs
-	\item Hidden layer size: $512$
-	\item Training time: 30 epochs
+    \item Character embedding size: 30
+    \item Starting learning rate: $8e-4$
+    \item Learning rate schedule: Multiply by $0.2$ every 5 epochs
+    \item Hidden layer size: $512$
+    \item Training time: 30 epochs
 \end{itemize}
 The only difference between these models is that one has two layers, and the other has only one.\\
 
@@ -12,4 +12,4 @@ The only difference between these models is that one has two layers, and the oth
 We decided to perform this experiment because increasing the non-linearity of simpler networks has been shown to make them significantly easier to train. Since proteins have such complicated structures though increasing the non-linearity might help the network learn this structure better.\\
 
 \noindent
-While adding layers to the network does increase the non-linearity it also makes the training significantly slower. Because each layer is essentially an entire LSTM in and of itself, going from one to two layers actually doubles the training time for the same amount of epochs. We hypothesise that due to the increased non-linearity, the network with two layers will learn a better representation of the proteins structure.
+While adding layers to the network does increase the non-linearity it also makes the training significantly slower. Because each layer is essentially an entire LSTM in and of itself, going from one to two layers actually doubles the training time for the same amount of epochs. We hypothesize that due to the increased non-linearity, the network with two layers will learn a better representation of the protein structure.

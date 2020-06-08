@@ -1,12 +1,12 @@
-The feature size is the hyperparameter which controls the size of the internal layers of the LSTM. Increasing this should mean that the network can learn more complex functions. However, it also increases training time in a linear way. The increase is linear because for every feature you add, you have to backpropagate through one more. For this experiment we've trained three models with the following identical hyperparameters:
+The feature size is the hyperparameter which controls the size of the internal layers of the LSTM. Increasing this should mean that the network can learn more complex functions. However, it also increases training time in a linear way. The increase is linear because, for every feature you add, you have to backpropagate through one more. For this experiment we've trained three models with the following identical hyperparameters:
 \begin{itemize}
-	\item Layers: $1$
-	\item Character embedding size: 30
-	\item Starting learning rate: $8e-4$
-	\item Learning rate schedule: Multiply by $0.2$ every 5 epochs
-	\item Training time: 6 hours
+    \item Layers: $1$
+    \item Character embedding size: 30
+    \item Starting learning rate: $8e-4$
+    \item Learning rate schedule: Multiply by $0.2$ every 5 epochs
+    \item Training time: 6 hours
 \end{itemize}
-The only difference between the models is the hidden layer size or feature size. We trained three models, one with $256$ features, one with $512$ features and one with $1024$ features. Since training time is the most sparse resource for us, we decided that we would compare the results for equal real-time training time, not the number of epochs as with the other experiments.\\
+The only difference between the models is the hidden layer size or feature size. We trained three models, one with $256$ features, one with $512$ features, and one with $1024$ features. Since training time is the most sparse resource for us, we decided that we would compare the results for equal real-time training time, not the number of epochs as with the other experiments.\\
 
 \noindent
-For this experiment we expect there to be some middle ground between the size of the model and how well it learns the representation. Since protein structures are very complex, we hypothesise that the larger models will perform better, even though they are not able to train for as many epochs.
+For this experiment, we expect there to be some middle ground between the size of the model and how well it learns the representation. Since protein structures are very complex, we hypothesize that the larger models will perform better, even though they are not able to train for as many epochs.
