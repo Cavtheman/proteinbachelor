@@ -8,16 +8,26 @@ Using the results gathered from the experiments, we set out to create one that w
     \item Training time: 15 epochs/8 hours
 \end{itemize}
 
-Unfortunately this model did not end up outperforming the best model from the experiments, and due to time constraints we could not train another. The resulting plots can be seen in Figure ~\ref{fig:finished_tsne} and ~\ref{fig:finished_spearman}. The resulting scores can be seen in Table ~\ref{tab:finished_results}. This results does make sense in hindsight. The very large increases in Spearman correlation did not happen in the 2-layer models, and this may be because the 2-layer model is less prone to this kind of increase.
+Unfortunately this model did not end up outperforming the best model from the experiments, and due to time constraints we could not train another. The resulting plots can be seen in Figure ~\ref{fig:finished_tsne} and ~\ref{fig:finished_spearman}. The resulting scores can be seen in Tables ~\ref{tab:finished_results_final} and ~\ref{tab:finished_results_minloss}. This results does make sense in hindsight. The very large increases in Spearman correlation did not happen in the 2-layer models, and this may be because the 2-layer model is less prone to this kind of increase.
 
-\begin{table}[]
-\begin{tabular}{|l|lll|lll|}
+\begin{table}[!ht]
+\begin{tabular}{|l|lll|}
 \hline
-                   &                                            & Final model                    &                      & Minloss model                                &                                &                      \\ \cline{2-7}
-                   & \multicolumn{1}{l|}{Next token prediction} & \multicolumn{1}{l|}{Test loss} & Spearman correlation & \multicolumn{1}{l|}{Reconstruction accuracy} & \multicolumn{1}{l|}{Test loss} & Spearman correlation \\ \hline
-Last model results & \multicolumn{1}{l|}{13.68\%}               & \multicolumn{1}{l|}{2.81}      & 0.545                & \multicolumn{1}{l|}{13.63\%}                 & \multicolumn{1}{l|}{2.81}      & 0.478                \\ \hline
+                   &                                            & Final model                    &                      \\ \cline{2-4} 
+                   & \multicolumn{1}{l|}{Next token prediction} & \multicolumn{1}{l|}{Test loss} & Spearman correlation \\ \hline
+Last model results & \multicolumn{1}{l|}{13.68\%}               & \multicolumn{1}{l|}{2.81}      & 0.545                \\ \hline
 \end{tabular}
-\label{tab:finished_results}
+\label{tab:finished_results_final}
+\end{table}
+
+\begin{table}[!ht]
+\begin{tabular}{|l|lll|}
+\hline
+                   & Minloss model                                &                                &                      \\ \cline{2-4} 
+                   & \multicolumn{1}{l|}{Reconstruction accuracy} & \multicolumn{1}{l|}{Test loss} & Spearman correlation \\ \hline
+Last model results & \multicolumn{1}{l|}{13.63\%}                 & \multicolumn{1}{l|}{2.81}      & 0.478                \\ \hline
+\end{tabular}
+\label{tab:finished_results_minloss}
 \end{table}
 
 
