@@ -1,7 +1,4 @@
-%Theory behind RNN
-%lstm as improvement on rnn
-%Theory of lstm, inner workings
-%Use of hidden layers
+
 Typical neural networks do not have a state that allows them to "remember" previous data points, for prediction. This is where the basic idea behind a recurrent neural network (RNN for short) comes from. It has a hidden state representing its memory regarding previous data. It will then be able to make decisions regarding new data, taking this previous data into account.\\
 
 \noindent
@@ -19,7 +16,7 @@ The first is in a "one to many" fashion, in which they take a single input and o
 The second is in a "many to one" fashion in which the input is a sequence, and the network outputs a single result a the end. This is useful in cases where an entire sequence has a single class to be predicted.\\
 
 \noindent
-The last two both output in a "many to many" fashion, but how they do it is significantly different. The first case outputs a completely new sequence that is not neccesarily the same length as the input sequence, after having seen the entire input. This is useful for networks trying to represent the data in a different way. The last case is the one that will be described further down in this report. This case outputs an element of a new sequence for each element in the input. This means that for each output element, the RNN only knows about previous elements. This makes it the perfect candidate for next token prediction.
+The last two both output in a "many to many" fashion, but how they do it is significantly different. The first case outputs a completely new sequence that is not necessarily the same length as the input sequence, after having seen the entire input. This is useful for networks trying to represent the data in a different way. The last case is the one that will be described further down in this report. This case outputs an element of a new sequence for each element in the input. This means that for each output element, the RNN only knows about previous elements. This makes it the perfect candidate for next token prediction.
 
 \begin{figure}[h]
     \centering
@@ -103,10 +100,10 @@ If we take a look back at the formula used to update the weights, we can easily 
 Since $\frac{\partial E}{\partial W} = \sum_{t=0}^{T} \frac{\partial E_t}{\partial W} \rightarrow 0$ as $T \rightarrow \infty$, we can see that the updates will eventually be incredibly small, to the point where they are basically nonexsistent.
 
 \subsection{An LSTMs structure}
-First we will go over how the LSTM architecture works, then we will go over how this solves the vanishing/exploding gradient problem.\\
+First, we will go over how the LSTM architecture works, then we will go over how this solves the vanishing/exploding gradient problem.\\
 
 \noindent
-An LSTM actually has an extra input and output vector compared to the base RNN architecture. Much like the base RNN, at time step $t$ it takes an input vector $x_t$ and concatenates it with a hidden vector from a previous output, which we wil refer to as $h_{t-1}$. We will refer to the concatenated vector as $[x_t,h_{t-1}]$. The difference is that it also takes in a cell state, which we will refer to as $c_{t-1}$ since it is also from a previous output. The idea behind this cell state is for it to act as a "highway" for information which can only be changed with linear operations. This means that the cell state is very helpful for remembering information that was learned a long time ago.\\
+An LSTM actually has an extra input and output vector compared to the base RNN architecture. Much like the base RNN, at time step $t$ it takes an input vector $x_t$ and concatenates it with a hidden vector from a previous output, which we will refer to as $h_{t-1}$. We will refer to the concatenated vector as $[x_t,h_{t-1}]$. The difference is that it also takes in a cell state, which we will refer to as $c_{t-1}$ since it is also from a previous output. The idea behind this cell state is for it to act as a "highway" for information that can only be changed with linear operations. This means that the cell state is very helpful for remembering information that was learned a long time ago.\\
 
 \begin{figure}[h]
     \centering
@@ -134,7 +131,7 @@ The next two layers also interact with the cell state, but are combined via poin
 \end{align}
 
 \noindent
-The final layer also has a sigmoid activation, but is used quite differently. A copy of the cell state will be passed through a tanh activation, and multiplied pointwise with the output of this layer. The output of this is then the new $h_t$ that will both be passed forward and used as the output. This gate acts as an output gate, because it is what controls which parts of the information in the cell state will be passed along as input for the next time step.\\
+The final layer also has a sigmoid activation but is used quite differently. A copy of the cell state will be passed through a tanh activation and multiplied pointwise with the output of this layer. The output of this is then the new $h_t$ that will both be passed forward and used as the output. This gate acts as an output gate because it is what controls which parts of the information in the cell state will be passed along as input for the next time step.\\
 
 \noindent
 With weights $W_o$, the output gate $o_t$ is defined as follows at time step $t$:
