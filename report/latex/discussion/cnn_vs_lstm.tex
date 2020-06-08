@@ -1,4 +1,12 @@
-In this project, the LSTM clearly outperforms the CNN in finding any representation of the the secondary structure and in predicting the stability scores. Meaning that the LSTM learned more insight of the internal structure. \\
+In this project, the LSTM clearly outperforms the CNN in finding any representation of the structure and in predicting the stability scores. This means that the LSTM has learned more insight into the internal structure of proteins. This does not necessarily mean that using a CNN does not work as well for protein structure prediction, however.\\
 
 \noindent
-In general, an LSTM are very time consuming when looking at training time. Meaning there are some disadvantages of using an LSTM compared to a CNN.
+There are, in fact, several good reasons to use a CNN over an LSTM. One of the main reasons is the significantly increased parallelisation of CNNs. Because LSTMs are sequential, it is neccesary to finish calculating each sequence in order. This is not the case with a CNN, because each element is independent of the others in this context. Because of this, a CNN can be trained significantly faster than an LSTM.\\
+
+\noindent
+Without special architectures or other measures, a CNN cannot handle variable length sequences. This is of course something that an LSTM handles with ease, due to the recurrent design.
+
+
+%\noindent
+%In general, an LSTM are very time consuming when looking at training time. Meaning there are some disadvantages of using an LSTM compared to a CNN.
+

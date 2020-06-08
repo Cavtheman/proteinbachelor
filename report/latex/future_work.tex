@@ -1,11 +1,3 @@
-\begin{itemize}
-\item Dilated kernels for CNN
-\item Bidirectional LSTM, trained similar to CNN
-\item Training a TCN \cite{intro}
-\item Experiment with different dropout values for 2-layer LSTM
-\end{itemize}
-
-\noindent
 A potential improvement of the CNN could be working with dilated kernels. Dilated convolutional kernels are like regular convolutional kernels, but with some spacing between the values in the kernel. Dilated kernels have proved to significantly improve performance, compared to non-dilated counterparts in some cases.\cite{cp} This is because dilating the kernels makes the size of the receptive field increase exponentially, instead of linearly with non-dilated kernels. This could help the model learn some more long-distance dependencies more easily.\\
 
 \noindent
@@ -16,7 +8,10 @@ One could also experiment with more complicated architectures, such as a Tempora
 for Sequence Modeling".\cite{tcnn} This architecture has two important distinguishing characteristics; that the convolutions do not take information from the "future" into account, and that it can take a sequence of any length and output a sequence of the same length. These two characteristics seem to make it uniquely suited to also be applied to protein structure prediction if applied similarly to an RNN.\\
 
 \noindent
-The experiments performed with the LSTM network could be expanded upon significantly. One could try with more than two layers of LSTM, and see if this impacts the performance.  While we ended up using a learned character embedding to represent the sequences, experimenting with the size of this embedding could also lead to some interesting results. The learning rate schedule experiment could also be expanded, by trying out different schedules. This is a difficult experiment though because intuitively the optimal schedule seems to vary significantly with other hyperparameters. We also only tested a dropout value of $50\%$ between the 2-layer LSTMs, experimenting with only this value is perhaps slightly naive. So testing other values would likely provide better insight.\\
+The experiments performed with the LSTM network could be expanded upon significantly. One could try with more than two layers of LSTM, and see if this impacts the performance.  While we ended up using a learned character embedding to represent the sequences, experimenting with the size of this embedding could also lead to some interesting results. We have also realised that using such a high-dimensionality embedding may have hurt the performance of the mode, especially considering the fact that we haven't been able to experiment with it. The learning rate schedule experiment could also be expanded, by trying out different schedules. This is a difficult experiment though because intuitively the optimal schedule seems to vary significantly with other hyperparameters. We also only tested a dropout value of $50\%$ between the 2-layer LSTMs, experimenting with only this value is perhaps slightly naive. So testing other values would likely provide better insight. One could also experiment with using an mLSTM instead of a regular LSTM. \\
 
 \noindent
-Another interesting idea could be to work with a bidirectional LSTM. Since proteins are not sequential in the sense that one end always comes first, it makes sense intuitively that looking at it from both ends would help a model understand the structure better.
+Another interesting idea could be to work with a bidirectional LSTM. Since proteins are not sequential in the sense that one end always comes first, it makes sense intuitively that looking at it from both ends would help a model understand the structure better.\\
+
+\noindent
+In this paper we have only evaluated the models on their ability to predict the stability of proteins. Getting good results here may not necessarily mean that the models have learned representations that say a lot about other measures such as flourescence, secondary structure or homology, as has been suggested by the TAPE paper\cite{tape} as good benchmarks for protein structure representations.

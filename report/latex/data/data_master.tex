@@ -1,4 +1,4 @@
-In this paper we have used two different datasets, for two different purposes. The first dataset is a large dataset containing only the primary structures of proteins, which we will use to train our models. This dataset does not have any information regarding the proteins apart from their primary structure. The second dataset is significantly smaller, consisting also of the primary structures of proteins, but labelled with a value representing the stability of the protein.
+In this paper we have used three different datasets, for three different purposes. The first dataset is a large dataset containing only the primary structures of proteins, which we use to train our models. The second and third datasets are significantly smaller, consisting also of the primary structures of proteins, and are labelled with structural class, and a value representing the stability of the protein respectively. The dataset containing the structural class is used as out validation set. It was never used for training, so it could be used to estimate the performance of the models. The stability dataset is used as a test set.
 
 \subsection{Training data}
 As previously mentioned, we mainly focused on the training of our models with unsupervised learning. There is a lot more data explaining the primary structure of the protein, since this is historically very easy to find, compared to finding secondary structure. \\
@@ -87,12 +87,20 @@ h(E) = 3
 This means our data gets transformed to one-hot indices before we can use it in our models.
 
 \subsection{Labelled test sets}
-Since our models performance is not measured directly on the same kind of data that we trained on, we have two datasets to use as test sets. These datasets labelled, in contrast to the training set. The first dataset has labelling detailing the structural classification of each protein.\cite{scope} The second dataset has labels describing the stability of the given proteins.\cite{stability} Both of these datasets contain the proteins' primary structure in the same format as the training dataset.\\
+Since our models' performance is not measured directly on the same kind of data that we trained on, we have two datasets to use as test sets. These datasets labelled, in contrast to the training set. The first dataset has labelling detailing the structural classification of each protein.\cite{scope} The second dataset has labels describing the stability of the given proteins.\cite{stability} Both of these datasets contain the proteins' primary structure in the same format as the training dataset.\\
 
 \noindent
 \subsubsection{Structural classification}
-We do not use this dataset for quantitative performance analysis however. We instead put the models' representation of the dataset through a TSNE dimensionality reduction to see whether the different structural classifications are clearly separated. 
-%Once the model had trained with the training data. We used some labeled data to test the effectiveness of our models. this data also contains protein sequences with the same format as the training data. This data also contains a label, explaining which structure the protein has. This data made it possible to check if our models can find any separation between the different structures.
+We do not use this dataset for quantitative performance analysis. Instead, we put the models' representation of the dataset through a TSNE dimensionality reduction to see whether the different structural classifications are clearly separated. We do also note down the next token prediction accuracy of the LSTM for this dataset, but this is not necessarily a representative parameter. The data is put in several classes, as follow:
+\begin{itemize}
+	\item a: Alpha proteins
+	\item b: Beta proteins
+	\item c: Alpha/Beta proteins
+	\item d: Alpha+Beta proteins. Not used
+	\item e: Multi-domain proteins
+	\item f: Membrane proteins
+	\item g: Small proteins
+\end{itemize}
 
 \subsection{Protein Stability data}
-The stability dataset is also labeled dataset containing previously explained protein sequences. In this dataset, the label explains the stability of the protein. This label is explained with some real number value, which explains how stable some protein is. This dataset we use, to check whether or not our models have learned enough of the underlying structure of the proteins, to be used to check the stability of the protein.
+The stability dataset is also labelled dataset containing previously explained protein sequences. In this dataset, the label explains the stability of the protein. This label is explained with some real number value, which explains how stable some protein is. This dataset we use, to check whether or not our models have learned enough of the underlying structure of the proteins, to be used to check the stability of the protein.
